@@ -18,7 +18,9 @@
   --border:     #E2E0D8;
   
   --accent:     #0A2540; /* Deep authoritative Navy */
-  --accent-gold:#A37B50; /* Luxury gold/bronze accent */
+  --accent-gold:#B89065; /* Soft warm gold/beige accent (updated for warmth) */
+  --accent-sage:#6B8068; /* Muted sage green */
+  --accent-terra:#A45C40; /* Muted terracotta */
   --accent-pale:#F8FAFC;
   
   --glass-bg:   rgba(252, 251, 248, 0.7);
@@ -71,10 +73,66 @@
     border: 1px solid var(--glass-border);
   }
 
+  /* Premium Hover Effects */
+  .hover-lift {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(10, 37, 64, 0.08);
+  }
+
+  .btn-premium {
+    background: linear-gradient(135deg, var(--accent) 0%, #0F3254 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 14px rgba(10, 37, 64, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-premium::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    transform: skewX(-20deg);
+    transition: 0.5s ease;
+  }
+  .btn-premium:hover::after {
+    left: 150%;
+  }
+  .btn-premium:hover {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 6px 20px rgba(10, 37, 64, 0.3);
+    transform: translateY(-1px);
+  }
+
+  /* Decorative elements */
+  .chapter-ornament {
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background-color: var(--accent-gold);
+    margin-bottom: 1rem;
+  }
+
   .text-ink       { color: var(--ink); }
   .text-ink-mid   { color: var(--ink-mid); }
   .text-ink-muted { color: var(--ink-muted); }
   .bg-surface     { background-color: var(--surface); }
   .bg-surface-2   { background-color: var(--surface-2); }
   .border-default { border-color: var(--border); }
+}
+
+/* Background Particle Animation Keyframes */
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+  50% { transform: translateY(-20px) translateX(10px); opacity: 0.6; }
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-gold) 0%, transparent 70%);
+  animation: float 10s ease-in-out infinite;
+  filter: blur(8px);
+  pointer-events: none;
 }
