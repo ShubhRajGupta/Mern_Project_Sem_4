@@ -1,27 +1,80 @@
 @import "tailwindcss";
 
-@layer base {
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
+/* ── Google Fonts ─────────────────────────────────────────────────────────
+   Playfair Display — Premium serif for headings (Quiet Luxury)
+   Inter — Clean, legible sans-serif for body
+   JetBrains Mono  — for tags/code labels
+*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap');
 
-  html {
-    scroll-behavior: smooth;
-  }
+/* ── Design Tokens ────────────────────────────────────────────────────── */
+:root {
+  /* Brand - Premium Academic Palette */
+  --ink:        #0F172A; /* Deep slate / charcoal */
+  --ink-mid:    #475569;
+  --ink-muted:  #94A3B8;
+  --surface:    #FCFBF8; /* Elegant cream / off-white */
+  --surface-2:  #F1F0EC;
+  --border:     #E2E0D8;
+  
+  --accent:     #0A2540; /* Deep authoritative Navy */
+  --accent-gold:#A37B50; /* Luxury gold/bronze accent */
+  --accent-pale:#F8FAFC;
+  
+  --glass-bg:   rgba(252, 251, 248, 0.7);
+  --glass-border: rgba(226, 224, 216, 0.5);
+}
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
-    background-color: #f8fafc;
-    color: #1e293b;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--surface);
+    color: var(--ink);
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-weight: 600;
-    line-height: 1.25;
+    font-family: 'Playfair Display', serif;
+    color: var(--accent);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
   }
 
-  code, pre {
-    font-family: 'DM Mono', monospace;
+  code, .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
   }
+
+  /* ── Custom scrollbar ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--surface-2); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+}
+
+/* ── Utilities ── */
+@layer utilities {
+  .focus-ring {
+    outline: 2px solid var(--accent-gold);
+    outline-offset: 2px;
+  }
+
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+  }
+
+  .text-ink       { color: var(--ink); }
+  .text-ink-mid   { color: var(--ink-mid); }
+  .text-ink-muted { color: var(--ink-muted); }
+  .bg-surface     { background-color: var(--surface); }
+  .bg-surface-2   { background-color: var(--surface-2); }
+  .border-default { border-color: var(--border); }
 }

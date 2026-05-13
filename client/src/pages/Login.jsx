@@ -1,19 +1,12 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-
-// Login page — renders outside Layout (no Sidebar/Navbar wrapper).
-// API base URL will come from an env variable: import.meta.env.VITE_API_URL
-// TODO: replace the placeholder handler with real backend call.
 
 function Login() {
   const navigate = useNavigate()
-
-  const [form, setForm]     = useState({ email: '', password: '' })
-  const [error, setError]   = useState('')
+  const [form, setForm]       = useState({ email: '', password: '' })
+  const [error, setError]     = useState('')
   const [loading, setLoading] = useState(false)
 
-  // Controlled input handler — one function for all fields
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
@@ -21,104 +14,76 @@ function Login() {
   async function handleSubmit(e) {
     e.preventDefault()
     setError('')
-
-    // Basic client-side validation
-    if (!form.email || !form.password) {
-      setError('Please fill in all fields.')
-      return
-    }
-
+    if (!form.email || !form.password) { setError('Both fields are required.'); return }
     try {
       setLoading(true)
-
-      // TODO: uncomment when backend is ready
-      // const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, form)
-      // localStorage.setItem('token', res.data.token)
-      // navigate('/dashboard')
-
-      // Placeholder: simulate success
-      console.log('Login form data:', form)
+      console.log('Login:', form)
       navigate('/dashboard')
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Try again.')
-    } finally {
-      setLoading(false)
-    }
+      setError(err.response?.data?.message || 'Authentication failed.')
+    } finally { setLoading(false) }
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 justify-center">
-            <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold text-sm">
-              CR
-            </div>
+    <div className="min-h-screen flex items-center justify-center bg-[var(--surface)] p-6 font-sans">
+      <div className="w-full max-w-md bg-white p-10 border border-[var(--border)] shadow-[0_20px_60px_rgb(0,0,0,0.03)]">
+        
+        <div className="mb-12 text-center">
+          <Link to="/" className="inline-flex items-center justify-center w-12 h-12 border border-[var(--accent)] text-[var(--accent)] font-serif font-bold text-2xl mb-6 hover:bg-[var(--accent)] hover:text-white transition-colors">
+            R
           </Link>
-          <h1 className="mt-4 text-2xl font-bold text-slate-900">Welcome back</h1>
-          <p className="text-sm text-slate-500 mt-1">Sign in to your account</p>
+          <h1 className="text-3xl font-serif text-[var(--accent)] mb-2">Researcher Portal</h1>
+          <p className="text-[var(--ink-muted)] text-sm font-light">Access the academic archive.</p>
         </div>
 
-        {/* Card */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-8">
-          {error && (
-            <div className="mb-5 bg-red-50 border border-red-100 text-red-600 text-sm px-4 py-3 rounded-lg">
-              {error}
-            </div>
-          )}
+        {error && (
+          <div className="mb-6 p-4 border border-red-200 bg-red-50 text-red-800 text-sm">
+            {error}
+          </div>
+        )}
 
-          <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-            {/* Email */}
-            <div>
-              <label htmlFor="login-email" className="block text-sm font-medium text-slate-700 mb-1.5">
-                Email address
-              </label>
-              <input
-                id="login-email"
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                placeholder="you@college.edu"
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-              />
-            </div>
+        <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--ink-mid)] mb-2">
+              Institution Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-[var(--border)] bg-[var(--surface)] text-[var(--ink)] focus:outline-none focus:border-[var(--accent-gold)] transition-colors text-sm"
+            />
+          </div>
 
-            {/* Password */}
-            <div>
-              <label htmlFor="login-password" className="block text-sm font-medium text-slate-700 mb-1.5">
-                Password
-              </label>
-              <input
-                id="login-password"
-                type="password"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-                placeholder="••••••••"
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-              />
-            </div>
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--ink-mid)] mb-2">
+              Passphrase
+            </label>
+            <input
+              type="password"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-[var(--border)] bg-[var(--surface)] text-[var(--ink)] focus:outline-none focus:border-[var(--accent-gold)] transition-colors text-sm"
+            />
+          </div>
 
-            <button
-              id="login-submit"
-              type="submit"
-              disabled={loading}
-              className="w-full bg-indigo-600 text-white text-sm font-semibold py-2.5 rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-60"
-            >
-              {loading ? 'Signing in…' : 'Sign In'}
-            </button>
-          </form>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3 bg-[var(--accent)] text-white text-sm tracking-wide font-medium hover:bg-[var(--ink)] transition-colors disabled:opacity-50 mt-4"
+          >
+            {loading ? 'Authenticating...' : 'Authenticate'}
+          </button>
+        </form>
+
+        <div className="mt-8 text-center pt-8 border-t border-[var(--border)]">
+          <p className="text-xs text-[var(--ink-muted)]">
+            Require access? <Link to="/register" className="text-[var(--accent-gold)] hover:text-[var(--accent)] transition-colors font-medium ml-1">Submit Application</Link>
+          </p>
         </div>
 
-        <p className="text-center text-sm text-slate-500 mt-6">
-          Don't have an account?{' '}
-          <Link to="/register" className="text-indigo-600 font-medium hover:underline">
-            Register
-          </Link>
-        </p>
       </div>
     </div>
   )

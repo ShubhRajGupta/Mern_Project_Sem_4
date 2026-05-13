@@ -1,67 +1,62 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 
-// Navbar renders on every page inside Layout.
-// Later: swap the hardcoded user state with auth context / token check.
+// Navbar: Elegant, minimal, glassmorphic backdrop
 function Navbar() {
   const navigate = useNavigate()
-
-  // TODO: Replace with real auth state from context or localStorage
   const isLoggedIn = false
 
-  function handleLogout() {
-    // TODO: clear token, call /api/auth/logout
-    navigate('/login')
-  }
-
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-slate-100 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Logo */}
+    <header className="sticky top-0 z-50 glass-card border-b-0 border-b-[var(--border)] transition-all duration-300">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        {/* Logo / Wordmark */}
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-sm">
-            CR
+          <div className="w-8 h-8 flex items-center justify-center border border-[var(--ink)] text-[var(--ink)] font-serif font-bold text-lg transition-colors group-hover:bg-[var(--ink)] group-hover:text-[var(--surface)]">
+            R
           </div>
-          <span className="font-semibold text-slate-800 tracking-tight text-base">
-            College Resource Hub
+          <span className="font-serif font-semibold text-xl tracking-tight text-[var(--accent)]">
+            Resourcely<span className="text-[var(--accent-gold)]">.</span>
           </span>
         </Link>
 
-        {/* Right side actions */}
-        <nav className="flex items-center gap-3">
+        {/* Navigation */}
+        <nav className="flex items-center gap-6">
           {isLoggedIn ? (
             <>
-              <Link
+              <NavLink
                 to="/dashboard"
-                className="text-sm text-slate-600 hover:text-indigo-600 transition-colors font-medium"
+                className={({ isActive }) =>
+                  `text-sm tracking-wide transition-colors ${isActive ? 'text-[var(--ink)] font-medium' : 'text-[var(--ink-mid)] hover:text-[var(--accent-gold)]'}`
+                }
               >
-                Dashboard
-              </Link>
-              <Link
+                Collection
+              </NavLink>
+              <NavLink
                 to="/upload"
-                className="text-sm bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors font-medium"
+                className="text-sm tracking-wide text-[var(--ink-mid)] hover:text-[var(--accent-gold)] transition-colors"
               >
-                Upload
-              </Link>
+                Contribute
+              </NavLink>
+              <div className="w-px h-4 bg-[var(--border)] mx-2"></div>
               <button
-                onClick={handleLogout}
-                className="text-sm text-slate-500 hover:text-red-500 transition-colors font-medium"
+                onClick={() => navigate('/login')}
+                className="text-sm tracking-wide text-[var(--ink-muted)] hover:text-red-800 transition-colors"
               >
-                Logout
+                Sign out
               </button>
             </>
           ) : (
             <>
               <Link
                 to="/login"
-                className="text-sm text-slate-600 hover:text-indigo-600 transition-colors font-medium"
+                className="text-sm tracking-wide text-[var(--ink-mid)] hover:text-[var(--accent-gold)] transition-colors"
               >
-                Sign In
+                Sign in
               </Link>
               <Link
                 to="/register"
-                className="text-sm bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors font-medium"
+                className="px-5 py-2 text-sm tracking-wide bg-[var(--accent)] text-white hover:bg-[var(--ink)] transition-colors duration-300"
               >
-                Get Started
+                Join the Archive
               </Link>
             </>
           )}

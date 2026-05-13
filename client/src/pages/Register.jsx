@@ -1,163 +1,109 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-
-// Register page — renders outside Layout.
-// TODO: connect to POST /api/auth/register when backend is ready.
 
 function Register() {
   const navigate = useNavigate()
-
-  const [form, setForm]     = useState({ name: '', email: '', password: '', confirmPassword: '' })
-  const [error, setError]   = useState('')
+  const [form, setForm]       = useState({ name: '', email: '', password: '', confirmPassword: '' })
+  const [error, setError]     = useState('')
   const [loading, setLoading] = useState(false)
 
-  function handleChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
+  function handleChange(e) { setForm({ ...form, [e.target.name]: e.target.value }) }
 
   async function handleSubmit(e) {
     e.preventDefault()
     setError('')
-
-    if (!form.name || !form.email || !form.password || !form.confirmPassword) {
-      setError('Please fill in all fields.')
-      return
-    }
-
-    if (form.password !== form.confirmPassword) {
-      setError('Passwords do not match.')
-      return
-    }
-
-    if (form.password.length < 6) {
-      setError('Password must be at least 6 characters.')
-      return
-    }
-
+    if (!form.name || !form.email || !form.password || !form.confirmPassword) { setError('All fields are required.'); return }
+    if (form.password !== form.confirmPassword) { setError("Passphrases do not match."); return }
+    if (form.password.length < 6) { setError('Passphrase must be at least 6 characters.'); return }
     try {
       setLoading(true)
-
-      // TODO: uncomment when backend is ready
-      // const { name, email, password } = form
-      // await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, { name, email, password })
-      // navigate('/login')
-
-      // Placeholder: simulate success
-      console.log('Register form data:', form)
+      console.log('Register:', form)
       navigate('/login')
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed. Try again.')
-    } finally {
-      setLoading(false)
-    }
+      setError(err.response?.data?.message || 'Registration failed.')
+    } finally { setLoading(false) }
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 justify-center">
-            <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold text-sm">
-              CR
-            </div>
+    <div className="min-h-screen flex bg-[var(--surface)] font-sans">
+      
+      {/* Visual / Manifesto Side */}
+      <div className="hidden lg:flex w-5/12 bg-[var(--accent)] p-16 flex-col justify-between text-white relative overflow-hidden">
+        <div className="relative z-10">
+          <Link to="/" className="inline-flex items-center justify-center w-12 h-12 border border-white text-white font-serif font-bold text-2xl hover:bg-white hover:text-[var(--accent)] transition-colors">
+            R
           </Link>
-          <h1 className="mt-4 text-2xl font-bold text-slate-900">Create account</h1>
-          <p className="text-sm text-slate-500 mt-1">Join the community of learners</p>
         </div>
+        
+        <div className="relative z-10 max-w-sm">
+          <h2 className="font-serif text-4xl mb-6 leading-snug">
+            Knowledge grows when it is shared freely.
+          </h2>
+          <p className="text-white/70 font-light leading-relaxed text-sm">
+            Join a collective of students and scholars dedicated to open-source academia. Upload your notes, access past materials, and contribute to the repository.
+          </p>
+        </div>
+        
+        {/* Decorative elements */}
+        <div className="absolute -right-20 -bottom-20 w-[600px] h-[600px] border border-white/10 rounded-full"></div>
+        <div className="absolute -right-10 -bottom-10 w-[400px] h-[400px] border border-white/5 rounded-full"></div>
+      </div>
 
-        {/* Card */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-8">
+      {/* Form Side */}
+      <div className="flex-1 flex items-center justify-center p-6">
+        <div className="w-full max-w-md">
+          
+          <div className="mb-10 lg:hidden">
+            <Link to="/" className="inline-flex items-center justify-center w-12 h-12 border border-[var(--accent)] text-[var(--accent)] font-serif font-bold text-2xl">
+              R
+            </Link>
+          </div>
+
+          <h1 className="text-3xl font-serif text-[var(--accent)] mb-2">Join the Archive</h1>
+          <p className="text-[var(--ink-muted)] text-sm font-light mb-10">Establish your academic credentials.</p>
+
           {error && (
-            <div className="mb-5 bg-red-50 border border-red-100 text-red-600 text-sm px-4 py-3 rounded-lg">
+            <div className="mb-6 p-4 border border-red-200 bg-red-50 text-red-800 text-sm">
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-            {/* Name */}
-            <div>
-              <label htmlFor="reg-name" className="block text-sm font-medium text-slate-700 mb-1.5">
-                Full name
-              </label>
-              <input
-                id="reg-name"
-                type="text"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                placeholder="Rahul Sharma"
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-              />
-            </div>
-
-            {/* Email */}
-            <div>
-              <label htmlFor="reg-email" className="block text-sm font-medium text-slate-700 mb-1.5">
-                Email address
-              </label>
-              <input
-                id="reg-email"
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                placeholder="you@college.edu"
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-              />
-            </div>
-
-            {/* Password */}
-            <div>
-              <label htmlFor="reg-password" className="block text-sm font-medium text-slate-700 mb-1.5">
-                Password
-              </label>
-              <input
-                id="reg-password"
-                type="password"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-                placeholder="Min. 6 characters"
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-              />
-            </div>
-
-            {/* Confirm Password */}
-            <div>
-              <label htmlFor="reg-confirm" className="block text-sm font-medium text-slate-700 mb-1.5">
-                Confirm password
-              </label>
-              <input
-                id="reg-confirm"
-                type="password"
-                name="confirmPassword"
-                value={form.confirmPassword}
-                onChange={handleChange}
-                placeholder="••••••••"
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-              />
-            </div>
+            {[
+              { id: 'reg-name', name: 'name', label: 'Full Name', type: 'text' },
+              { id: 'reg-email', name: 'email', label: 'Institution Email', type: 'email' },
+              { id: 'reg-pass', name: 'password', label: 'Passphrase', type: 'password' },
+              { id: 'reg-confirm', name: 'confirmPassword', label: 'Confirm Passphrase', type: 'password' },
+            ].map(({ id, name, label, type }) => (
+              <div key={id}>
+                <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--ink-mid)] mb-2">
+                  {label}
+                </label>
+                <input
+                  id={id}
+                  type={type}
+                  name={name}
+                  value={form[name]}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-[var(--border)] bg-white text-[var(--ink)] focus:outline-none focus:border-[var(--accent-gold)] transition-colors text-sm"
+                />
+              </div>
+            ))}
 
             <button
-              id="register-submit"
               type="submit"
               disabled={loading}
-              className="w-full bg-indigo-600 text-white text-sm font-semibold py-2.5 rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-60"
+              className="w-full py-3 bg-[var(--accent)] text-white text-sm tracking-wide font-medium hover:bg-[var(--ink)] transition-colors disabled:opacity-50 mt-6"
             >
-              {loading ? 'Creating account…' : 'Create Account'}
+              {loading ? 'Processing...' : 'Submit Application'}
             </button>
           </form>
-        </div>
 
-        <p className="text-center text-sm text-slate-500 mt-6">
-          Already have an account?{' '}
-          <Link to="/login" className="text-indigo-600 font-medium hover:underline">
-            Sign in
-          </Link>
-        </p>
+          <p className="text-xs mt-8 text-[var(--ink-muted)]">
+            Already registered? <Link to="/login" className="text-[var(--accent-gold)] hover:text-[var(--accent)] transition-colors font-medium ml-1">Access Portal</Link>
+          </p>
+
+        </div>
       </div>
     </div>
   )

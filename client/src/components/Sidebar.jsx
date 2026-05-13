@@ -1,34 +1,60 @@
 import { NavLink } from 'react-router-dom'
 
-// Sidebar shows only on dashboard-style pages (inside Layout).
-// NavLink gives automatic "active" class for the current route.
 const navItems = [
-  { to: '/dashboard', label: 'Dashboard', icon: '🏠' },
-  { to: '/upload',    label: 'Upload',    icon: '⬆️' },
+  { to: '/dashboard', label: 'Library Catalog' },
+  { to: '/upload',    label: 'Deposit Work' },
+]
+
+const subjects = [
+  'Computer Science', 
+  'Mathematics', 
+  'Physics', 
+  'Economics',
+  'Literature',
+  'Engineering'
 ]
 
 function Sidebar() {
   return (
-    <aside className="hidden md:flex flex-col w-56 min-h-full bg-white border-r border-slate-100 py-6 px-3 gap-1 shrink-0">
-      <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest px-3 mb-2">
-        Menu
-      </p>
-      {navItems.map(({ to, label, icon }) => (
-        <NavLink
-          key={to}
-          to={to}
-          className={({ isActive }) =>
-            `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-              isActive
-                ? 'bg-indigo-50 text-indigo-600'
-                : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-            }`
-          }
-        >
-          <span className="text-base leading-none">{icon}</span>
-          {label}
-        </NavLink>
-      ))}
+    <aside className="hidden md:flex flex-col w-64 shrink-0 pr-8 border-r border-[var(--border)]">
+      <div className="mb-8">
+        <p className="text-[11px] font-medium uppercase tracking-widest mb-4 text-[var(--ink-muted)]">
+          Repository
+        </p>
+        <div className="flex flex-col gap-1">
+          {navItems.map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              className={({ isActive }) =>
+                `px-4 py-2.5 text-sm transition-all duration-300 ${
+                  isActive
+                    ? 'text-[var(--accent)] font-medium border-l-2 border-[var(--accent-gold)] bg-[var(--surface-2)]'
+                    : 'text-[var(--ink-mid)] border-l-2 border-transparent hover:text-[var(--accent)] hover:border-[var(--border)]'
+                }`
+              }
+            >
+              {label}
+            </NavLink>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <p className="text-[11px] font-medium uppercase tracking-widest mb-4 text-[var(--ink-muted)]">
+          Disciplines
+        </p>
+        <div className="flex flex-col gap-1">
+          {subjects.map((s) => (
+            <button
+              key={s}
+              className="text-left px-4 py-2 text-sm text-[var(--ink-mid)] transition-colors hover:text-[var(--accent)] hover:bg-[var(--surface-2)]"
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+      </div>
     </aside>
   )
 }

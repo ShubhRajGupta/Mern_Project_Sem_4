@@ -1,165 +1,124 @@
 import { Link } from 'react-router-dom'
 
-// Feature card data — easy to edit or pull from API later
-const features = [
-  {
-    icon: '📂',
-    title: 'Subject-Wise Resources',
-    desc: 'Find notes, papers, and books organized by subject and semester — no more hunting through group chats.',
-  },
-  {
-    icon: '⬆️',
-    title: 'Easy Upload',
-    desc: 'Upload PDFs, slides, or docs in seconds. Tag them with subject and semester for instant discoverability.',
-  },
-  {
-    icon: '🔍',
-    title: 'Fast Search',
-    desc: 'Search by title, subject, or keyword across hundreds of student-uploaded resources.',
-  },
-  {
-    icon: '📥',
-    title: 'One-Click Download',
-    desc: 'Download any resource instantly. No accounts required to browse; sign up only to upload.',
-  },
+const STATS = [
+  { value: '1,200+', label: 'Academic Papers' },
+  { value: '45', label: 'Disciplines' },
+  { value: 'Open', label: 'Access' },
 ]
 
 function Landing() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* ── Navbar ──────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-50 bg-white border-b border-slate-100 shadow-sm">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-sm">
-              CR
-            </div>
-            <span className="font-semibold text-slate-800 tracking-tight">
-              College Resource Hub
-            </span>
+    <div className="min-h-screen bg-[var(--surface)] text-[var(--ink)] font-sans selection:bg-[var(--accent-gold)] selection:text-white">
+      {/* ── Minimal Top Nav ──────────────────────────────────────────────── */}
+      <header className="absolute top-0 w-full z-50 px-8 py-6 flex justify-between items-center">
+        <Link to="/" className="flex items-center gap-2 group">
+          <div className="w-8 h-8 flex items-center justify-center border border-[var(--accent)] text-[var(--accent)] font-serif font-bold text-lg">
+            R
+          </div>
+          <span className="font-serif font-semibold text-xl tracking-tight text-[var(--accent)]">
+            Resourcely<span className="text-[var(--accent-gold)]">.</span>
+          </span>
+        </Link>
+        <div className="flex items-center gap-6">
+          <Link to="/login" className="text-sm tracking-wide text-[var(--accent)] hover:text-[var(--accent-gold)] transition-colors">
+            Sign In
           </Link>
-          <nav className="flex items-center gap-3">
-            <Link
-              to="/login"
-              className="text-sm text-slate-600 hover:text-indigo-600 transition-colors font-medium"
-            >
-              Sign In
-            </Link>
-            <Link
-              to="/register"
-              className="text-sm bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors font-medium"
-            >
-              Get Started
-            </Link>
-          </nav>
+          <Link to="/register" className="px-6 py-2.5 text-sm tracking-wide bg-[var(--accent)] text-white hover:bg-[var(--ink)] transition-colors duration-300">
+            Access Archive
+          </Link>
         </div>
       </header>
 
-      {/* ── Hero ────────────────────────────────────────────────── */}
-      <section className="max-w-6xl mx-auto px-6 pt-24 pb-20 text-center">
-        {/* Badge */}
-        <span className="inline-flex items-center gap-1.5 bg-indigo-50 text-indigo-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
-          <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
-          Built for students, by students
-        </span>
-
-        <h1 className="text-5xl sm:text-6xl font-bold text-slate-900 leading-tight mb-6 tracking-tight">
-          Your college notes,
-          <br />
-          <span className="text-indigo-600">organized for you.</span>
-        </h1>
-
-        <p className="text-lg text-slate-500 max-w-xl mx-auto mb-10 leading-relaxed">
-          Upload, discover, and download academic resources shared by your
-          peers. Everything — from past papers to lecture slides — in one
-          clean place.
-        </p>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <Link
-            to="/register"
-            id="hero-cta-primary"
-            className="w-full sm:w-auto bg-indigo-600 text-white text-sm font-semibold px-8 py-3.5 rounded-xl hover:bg-indigo-700 transition-colors shadow-md shadow-indigo-100"
-          >
-            Start for Free
-          </Link>
-          <Link
-            to="/dashboard"
-            id="hero-cta-secondary"
-            className="w-full sm:w-auto bg-slate-100 text-slate-700 text-sm font-semibold px-8 py-3.5 rounded-xl hover:bg-slate-200 transition-colors"
-          >
-            Browse Resources →
-          </Link>
+      {/* ── Cinematic Hero ───────────────────────────────────────────────── */}
+      <section className="relative pt-40 pb-32 px-8 max-w-7xl mx-auto flex flex-col justify-center min-h-[85vh]">
+        <div className="max-w-4xl">
+          <p className="text-sm uppercase tracking-[0.2em] mb-8 text-[var(--accent-gold)] font-medium">
+            Open Academic Repository
+          </p>
+          <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-serif text-[var(--accent)] leading-[1.05] mb-8">
+            Elevating <br />
+            academic discourse, <br />
+            <span className="italic text-[var(--ink-mid)] font-light">one document at a time.</span>
+          </h1>
+          <p className="text-lg md:text-xl text-[var(--ink-mid)] max-w-2xl leading-relaxed mb-12 font-light">
+            A curated, open-access repository of course materials, research notes, and past papers. Shared by scholars, designed for clarity.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <Link to="/dashboard" className="w-full sm:w-auto px-8 py-4 bg-[var(--accent)] text-white tracking-wide text-sm hover:bg-[var(--ink)] transition-colors duration-300 text-center">
+              Explore the Archive
+            </Link>
+            <Link to="/upload" className="w-full sm:w-auto px-8 py-4 border border-[var(--accent)] text-[var(--accent)] tracking-wide text-sm hover:bg-[var(--surface-2)] transition-colors duration-300 text-center">
+              Contribute Work
+            </Link>
+          </div>
         </div>
+        
+        {/* Decorative Grid Line */}
+        <div className="absolute right-8 top-0 h-full w-px bg-[var(--border)] hidden lg:block"></div>
+        <div className="absolute right-40 top-0 h-full w-px bg-[var(--border)] hidden lg:block"></div>
+      </section>
 
-        {/* Hero visual — a simple stats strip */}
-        <div className="mt-16 grid grid-cols-3 gap-4 max-w-lg mx-auto">
-          {[
-            { value: '500+', label: 'Resources' },
-            { value: '20+',  label: 'Subjects' },
-            { value: '100%', label: 'Free' },
-          ].map(({ value, label }) => (
-            <div key={label} className="bg-slate-50 rounded-xl py-5 px-3 border border-slate-100">
-              <p className="text-2xl font-bold text-slateigo-900">{value}</p>
-              <p className="text-xs text-slate-500 mt-1">{label}</p>
+      {/* ── Stats Section ────────────────────────────────────────────────── */}
+      <section className="border-y border-[var(--border)] bg-white">
+        <div className="max-w-7xl mx-auto px-8 py-16 grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--border)]">
+          {STATS.map(({ value, label }) => (
+            <div key={label} className="py-6 md:py-0 md:px-12 first:md:pl-0 last:md:pr-0">
+              <p className="text-4xl md:text-5xl font-serif text-[var(--accent)] mb-2">{value}</p>
+              <p className="text-sm tracking-widest uppercase text-[var(--ink-muted)]">{label}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── Features ────────────────────────────────────────────── */}
-      <section className="bg-slate-50 py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-3">
-              Everything you need to study better
+      {/* ── Content Strategy ─────────────────────────────────────────────── */}
+      <section className="py-32 px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-serif text-[var(--accent)] mb-8">
+              A commitment to <br />academic clarity.
             </h2>
-            <p className="text-slate-500 max-w-md mx-auto text-sm">
-              A focused set of features built around how students actually
-              study — not how enterprises manage files.
+            <p className="text-[var(--ink-mid)] leading-relaxed mb-6 font-light">
+              We believe that access to high-quality educational materials should not be gated by complex navigation or overwhelming interfaces. Resourcely provides a quiet, focused environment for deep study.
             </p>
+            <Link to="/about" className="inline-flex items-center gap-2 text-[var(--accent-gold)] hover:text-[var(--accent)] transition-colors font-medium">
+              Read our philosophy <span aria-hidden="true">&rarr;</span>
+            </Link>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {features.map(({ icon, title, desc }) => (
-              <div
-                key={title}
-                className="bg-white rounded-xl border border-slate-100 shadow-sm p-6 hover:shadow-md transition-shadow"
-              >
-                <div className="text-3xl mb-4">{icon}</div>
-                <h3 className="font-semibold text-slate-800 mb-2 text-sm">
-                  {title}
-                </h3>
-                <p className="text-slate-500 text-xs leading-relaxed">{desc}</p>
+          
+          <div className="grid grid-cols-1 gap-8 border-l border-[var(--border)] pl-8 lg:pl-16">
+            {[
+              { title: 'Peer-Sourced Materials', desc: 'Syllabi, lecture notes, and study guides contributed directly by the student body.' },
+              { title: 'Rigorous Organization', desc: 'Metadata-driven architecture ensures you find exactly what you need by discipline and semester.' },
+              { title: 'Unrestricted Access', desc: 'No paywalls. No aggressive tracking. Just unhindered access to human knowledge.' }
+            ].map(({ title, desc }) => (
+              <div key={title}>
+                <h3 className="text-xl font-serif text-[var(--accent)] mb-3">{title}</h3>
+                <p className="text-sm text-[var(--ink-mid)] leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CTA ─────────────────────────────────────────────────── */}
-      <section className="py-20">
-        <div className="max-w-2xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">
-            Ready to stop losing notes?
-          </h2>
-          <p className="text-slate-500 mb-8 text-sm leading-relaxed">
-            Join your classmates. Share what you know, get what you need.
-            It takes less than a minute to sign up.
-          </p>
-          <Link
-            to="/register"
-            id="cta-bottom"
-            className="inline-block bg-indigo-600 text-white text-sm font-semibold px-10 py-3.5 rounded-xl hover:bg-indigo-700 transition-colors shadow-md shadow-indigo-100"
-          >
-            Create a Free Account
-          </Link>
+      {/* ── Footer ───────────────────────────────────────────────────────── */}
+      <footer className="bg-[var(--accent)] text-white pt-24 pb-12 px-8">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12 border-b border-white/20 pb-12 mb-8">
+          <div>
+            <h2 className="text-3xl font-serif mb-6">Contribute to the collective.</h2>
+            <Link to="/register" className="inline-block px-8 py-3 bg-white text-[var(--accent)] hover:bg-[var(--surface-2)] transition-colors text-sm tracking-wide">
+              Create an Account
+            </Link>
+          </div>
+          <div className="text-right">
+            <p className="font-serif text-xl tracking-tight mb-2">Resourcely.</p>
+            <p className="text-white/60 text-sm">Department of Knowledge Sharing</p>
+          </div>
         </div>
-      </section>
-
-      {/* ── Footer ──────────────────────────────────────────────── */}
-      <footer className="border-t border-slate-100 py-8 text-center text-xs text-slate-400">
-        © {new Date().getFullYear()} College Resource Hub — MERN Semester Project
+        <div className="max-w-7xl mx-auto text-xs text-white/40 flex justify-between">
+          <p>&copy; {new Date().getFullYear()} Resourcely Initiative.</p>
+          <p>MERN Semester Project</p>
+        </div>
       </footer>
     </div>
   )

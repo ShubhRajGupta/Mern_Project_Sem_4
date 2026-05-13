@@ -3,27 +3,20 @@ import { Link } from 'react-router-dom'
 import Card from '../components/Card'
 
 const SAMPLE_RESOURCES = [
-  { _id: '1', title: 'Data Structures Notes',    subject: 'CS',  semester: 3, type: 'PDF',  uploadedBy: 'Rahul S.' },
-  { _id: '2', title: 'DBMS Past Papers',          subject: 'CS',  semester: 4, type: 'PDF',  uploadedBy: 'Priya M.' },
-  { _id: '3', title: 'Engineering Maths Slides',  subject: 'MATH',semester: 2, type: 'PPTX', uploadedBy: 'Aryan K.' },
-  { _id: '4', title: 'OS Concepts Cheat Sheet',   subject: 'CS',  semester: 5, type: 'PDF',  uploadedBy: 'Sneha L.' },
-  { _id: '5', title: 'Physics Lab Manual',         subject: 'PHY', semester: 1, type: 'DOCX', uploadedBy: 'Dev P.'   },
-  { _id: '6', title: 'Computer Networks Notes',   subject: 'CS',  semester: 5, type: 'PDF',  uploadedBy: 'Nisha R.' },
+  { _id: '1', title: 'Data Structures Compendium', subject: 'CS', sem: 3, type: 'PDF', by: 'Rahul S.', date: 'Oct 2025' },
+  { _id: '2', title: 'Database Systems Architecture', subject: 'CS', sem: 4, type: 'PDF', by: 'Priya M.', date: 'Nov 2025' },
+  { _id: '3', title: 'Applied Mathematics II', subject: 'MATH', sem: 2, type: 'PPTX', by: 'Aryan K.', date: 'Sep 2025' },
+  { _id: '4', title: 'Operating Systems Principles', subject: 'CS', sem: 5, type: 'PDF', by: 'Sneha L.', date: 'Dec 2025' },
+  { _id: '5', title: 'Classical Mechanics Laboratory', subject: 'PHY', sem: 1, type: 'DOCX', by: 'Dev P.', date: 'Aug 2025' },
+  { _id: '6', title: 'Network Protocols Analysis', subject: 'CS', sem: 5, type: 'PDF', by: 'Nisha R.', date: 'Jan 2026' },
 ]
 
 const SUBJECTS = ['All', 'CS', 'MATH', 'PHY']
 
-const typeBadge = {
-  PDF:  'bg-red-50 text-red-600',
-  PPTX: 'bg-orange-50 text-orange-600',
-  DOCX: 'bg-blue-50 text-blue-600',
-}
-
 function Dashboard() {
-  const [search, setSearch]   = useState('')
+  const [search, setSearch] = useState('')
   const [subject, setSubject] = useState('All')
 
-  // TODO: replace with useEffect + axios.get('/api/resources?subject=&search=')
   const filtered = SAMPLE_RESOURCES.filter((r) => {
     const matchSubject = subject === 'All' || r.subject === subject
     const matchSearch  = r.title.toLowerCase().includes(search.toLowerCase())
@@ -31,68 +24,78 @@ function Dashboard() {
   })
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-12">
+      {/* ── Header ────────────────────────────────────────────────────────── */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[var(--border)]">
         <div>
-          <h1 className="text-xl font-bold text-slate-900">Dashboard</h1>
-          <p className="text-sm text-slate-500 mt-0.5">Browse all shared resources</p>
+          <p className="text-[11px] font-medium uppercase tracking-widest mb-2 text-[var(--accent-gold)]">
+            Repository
+          </p>
+          <h1 className="text-4xl font-serif text-[var(--accent)]">Library Catalog</h1>
         </div>
         <Link
           to="/upload"
-          id="dashboard-upload-btn"
-          className="text-sm bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors font-medium"
+          className="inline-flex items-center justify-center px-6 py-2.5 bg-[var(--accent)] text-white text-sm tracking-wide hover:bg-[var(--ink)] transition-colors"
         >
-          + Upload
+          Deposit Document
         </Link>
       </div>
 
-      <Card className="p-4">
-        <div className="flex flex-col sm:flex-row gap-3">
+      {/* ── Filters ───────────────────────────────────────────────────────── */}
+      <div className="flex flex-col md:flex-row gap-6">
+        <div className="flex-1 relative">
           <input
-            id="dashboard-search"
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search resources…"
-            className="flex-1 px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+            placeholder="Search by title, author, or keyword..."
+            className="w-full px-4 py-3 bg-white border border-[var(--border)] text-sm focus:outline-none focus:border-[var(--accent-gold)] transition-colors placeholder:text-[var(--ink-muted)]"
           />
-          <div className="flex items-center gap-2">
-            {SUBJECTS.map((s) => (
-              <button
-                key={s}
-                id={`filter-${s.toLowerCase()}`}
-                onClick={() => setSubject(s)}
-                className={`px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
-                  subject === s
-                    ? 'bg-indigo-600 text-white'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                }`}
-              >
-                {s}
-              </button>
-            ))}
-          </div>
         </div>
-      </Card>
+        <div className="flex flex-wrap gap-2">
+          {SUBJECTS.map((s) => (
+            <button
+              key={s}
+              onClick={() => setSubject(s)}
+              className={`px-5 py-3 text-xs tracking-wider uppercase transition-colors border ${
+                subject === s
+                  ? 'border-[var(--accent)] bg-[var(--accent)] text-white'
+                  : 'border-[var(--border)] bg-white text-[var(--ink-mid)] hover:border-[var(--accent-gold)] hover:text-[var(--accent)]'
+              }`}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+      </div>
 
+      {/* ── Grid ──────────────────────────────────────────────────────────── */}
       {filtered.length === 0 ? (
-        <div className="text-center py-16 text-slate-400 text-sm">
-          No resources found.
+        <div className="py-24 text-center border border-[var(--border)] bg-white border-dashed">
+          <p className="font-serif text-xl text-[var(--ink-muted)]">No documents match your inquiry.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((resource) => (
-            <Link key={resource._id} to={`/resource/${resource._id}`} className="block group">
-              <Card className="hover:shadow-md transition-shadow h-full">
-                <span className={`inline-block text-xs font-semibold px-2 py-0.5 rounded-full mb-3 ${typeBadge[resource.type] || 'bg-slate-100 text-slate-600'}`}>
-                  {resource.type}
-                </span>
-                <h2 className="text-sm font-semibold text-slate-800 group-hover:text-indigo-600 transition-colors leading-snug mb-2">
+            <Link key={resource._id} to={`/resource/${resource._id}`} className="group block h-full">
+              <Card className="h-full p-8 flex flex-col relative overflow-hidden">
+                {/* Decorative subtle accent line on hover */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-[var(--accent-gold)] transform origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"></div>
+                
+                <div className="flex items-center justify-between mb-6">
+                  <span className="text-[10px] font-mono tracking-widest text-[var(--ink-muted)] border border-[var(--border)] px-2 py-1 bg-[var(--surface)]">
+                    {resource.type}
+                  </span>
+                  <span className="text-xs text-[var(--ink-muted)]">{resource.date}</span>
+                </div>
+                
+                <h2 className="font-serif text-xl text-[var(--accent)] mb-4 leading-snug group-hover:text-[var(--accent-gold)] transition-colors">
                   {resource.title}
                 </h2>
-                <div className="flex items-center justify-between pt-3 border-t border-slate-50">
-                  <span className="text-xs text-slate-400">Sem {resource.semester} · {resource.subject}</span>
-                  <span className="text-xs text-slate-400">{resource.uploadedBy}</span>
+                
+                <div className="mt-auto pt-6 border-t border-[var(--border)] flex justify-between items-center text-xs text-[var(--ink-mid)]">
+                  <span>Sem {resource.sem} · {resource.subject}</span>
+                  <span className="font-medium">{resource.by}</span>
                 </div>
               </Card>
             </Link>

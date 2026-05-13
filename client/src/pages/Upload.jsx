@@ -2,184 +2,156 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Card from '../components/Card'
 
-// TODO: connect to POST /api/resources (multipart/form-data) when backend is ready.
-// Authorization header: Bearer <token from localStorage>
-
-const SUBJECTS = ['CS', 'MATH', 'PHY', 'CHEM', 'ENG', 'ECO']
+const SUBJECTS = ['Computer Science', 'Mathematics', 'Physics', 'Chemistry', 'English', 'Economics']
 const SEMESTERS = [1, 2, 3, 4, 5, 6, 7, 8]
 
 function Upload() {
   const navigate = useNavigate()
 
-  const [form, setForm] = useState({
-    title: '',
-    subject: '',
-    semester: '',
-    description: '',
-  })
+  const [form, setForm] = useState({ title: '', subject: '', semester: '', description: '' })
   const [file, setFile]     = useState(null)
   const [error, setError]   = useState('')
   const [loading, setLoading] = useState(false)
 
-  function handleChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
-
-  function handleFile(e) {
-    setFile(e.target.files[0] || null)
-  }
+  function handleChange(e) { setForm({ ...form, [e.target.name]: e.target.value }) }
+  function handleFile(e) { setFile(e.target.files[0] || null) }
 
   async function handleSubmit(e) {
     e.preventDefault()
     setError('')
-
     if (!form.title || !form.subject || !form.semester || !file) {
-      setError('Please fill all required fields and select a file.')
+      setError('Essential metadata and document file are required.')
       return
     }
-
     try {
       setLoading(true)
-
-      // TODO: uncomment when backend is ready
-      // const data = new FormData()
-      // Object.entries(form).forEach(([k, v]) => data.append(k, v))
-      // data.append('file', file)
-      // const token = localStorage.getItem('token')
-      // await axios.post(`${import.meta.env.VITE_API_URL}/api/resources`, data, {
-      //   headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' },
-      // })
-      // navigate('/dashboard')
-
-      console.log('Upload payload:', form, file)
+      console.log('Upload:', form, file)
       navigate('/dashboard')
     } catch (err) {
-      setError(err.response?.data?.message || 'Upload failed. Try again.')
-    } finally {
-      setLoading(false)
-    }
+      setError(err.response?.data?.message || 'Deposit failed.')
+    } finally { setLoading(false) }
   }
 
   return (
-    <div className="max-w-xl space-y-6">
-      <div>
-        <h1 className="text-xl font-bold text-slate-900">Upload Resource</h1>
-        <p className="text-sm text-slate-500 mt-0.5">
-          Share notes, papers, or slides with your classmates.
+    <div className="max-w-3xl mx-auto py-8">
+      <div className="mb-10 border-b border-[var(--border)] pb-6">
+        <p className="text-[11px] font-medium uppercase tracking-widest mb-2 text-[var(--accent-gold)]">
+          Contribution
         </p>
+        <h1 className="text-4xl font-serif text-[var(--accent)] mb-3">Deposit Academic Work</h1>
+        <p className="text-[var(--ink-mid)] font-light">Submit course materials, research notes, or past papers to the repository.</p>
       </div>
 
-      <Card>
+      <Card className="p-8 md:p-12">
         {error && (
-          <div className="mb-5 bg-red-50 border border-red-100 text-red-600 text-sm px-4 py-3 rounded-lg">
+          <div className="mb-8 p-4 border border-red-200 bg-red-50 text-red-800 text-sm">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-          {/* Title */}
+        <form onSubmit={handleSubmit} className="space-y-8" noValidate>
+          {/* Document Title */}
           <div>
-            <label htmlFor="upload-title" className="block text-sm font-medium text-slate-700 mb-1.5">
-              Title <span className="text-red-400">*</span>
+            <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--ink-mid)] mb-3">
+              Document Title <span className="text-[var(--accent-gold)]">*</span>
             </label>
             <input
-              id="upload-title"
               type="text"
               name="title"
               value={form.title}
               onChange={handleChange}
-              placeholder="e.g. Data Structures Unit 2 Notes"
-              className="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+              placeholder="e.g., Advanced Linear Algebra Notes"
+              className="w-full px-4 py-3 bg-[var(--surface)] border border-[var(--border)] focus:outline-none focus:border-[var(--accent-gold)] transition-colors text-sm"
             />
           </div>
 
-          {/* Subject + Semester row */}
-          <div className="grid grid-cols-2 gap-4">
+          {/* Classification grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="upload-subject" className="block text-sm font-medium text-slate-700 mb-1.5">
-                Subject <span className="text-red-400">*</span>
+              <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--ink-mid)] mb-3">
+                Discipline <span className="text-[var(--accent-gold)]">*</span>
               </label>
               <select
-                id="upload-subject"
                 name="subject"
                 value={form.subject}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition bg-white"
+                className="w-full px-4 py-3 bg-[var(--surface)] border border-[var(--border)] focus:outline-none focus:border-[var(--accent-gold)] transition-colors text-sm appearance-none rounded-none"
               >
-                <option value="">Select</option>
+                <option value="">Select Discipline</option>
                 {SUBJECTS.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
             </div>
 
             <div>
-              <label htmlFor="upload-semester" className="block text-sm font-medium text-slate-700 mb-1.5">
-                Semester <span className="text-red-400">*</span>
+              <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--ink-mid)] mb-3">
+                Semester <span className="text-[var(--accent-gold)]">*</span>
               </label>
               <select
-                id="upload-semester"
                 name="semester"
                 value={form.semester}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition bg-white"
+                className="w-full px-4 py-3 bg-[var(--surface)] border border-[var(--border)] focus:outline-none focus:border-[var(--accent-gold)] transition-colors text-sm appearance-none rounded-none"
               >
-                <option value="">Select</option>
+                <option value="">Select Semester</option>
                 {SEMESTERS.map((s) => <option key={s} value={s}>Semester {s}</option>)}
               </select>
             </div>
           </div>
 
-          {/* Description */}
+          {/* Abstract / Description */}
           <div>
-            <label htmlFor="upload-desc" className="block text-sm font-medium text-slate-700 mb-1.5">
-              Description <span className="text-slate-400 font-normal">(optional)</span>
+            <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--ink-mid)] mb-3">
+              Abstract / Description
             </label>
             <textarea
-              id="upload-desc"
               name="description"
               value={form.description}
               onChange={handleChange}
-              rows={3}
-              placeholder="Brief description of what this resource covers…"
-              className="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition resize-none"
+              rows={4}
+              placeholder="Brief summary of the document's contents..."
+              className="w-full px-4 py-3 bg-[var(--surface)] border border-[var(--border)] focus:outline-none focus:border-[var(--accent-gold)] transition-colors text-sm resize-none"
             />
           </div>
 
-          {/* File picker */}
+          {/* File Upload Zone */}
           <div>
-            <label htmlFor="upload-file" className="block text-sm font-medium text-slate-700 mb-1.5">
-              File <span className="text-red-400">*</span>
+            <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--ink-mid)] mb-3">
+              Document File <span className="text-[var(--accent-gold)]">*</span>
             </label>
             <label
-              htmlFor="upload-file"
-              className="flex flex-col items-center justify-center w-full border-2 border-dashed border-slate-200 rounded-lg py-8 px-4 cursor-pointer hover:border-indigo-300 hover:bg-indigo-50 transition-colors"
+              className="flex flex-col items-center justify-center w-full border border-[var(--border)] border-dashed py-12 px-6 cursor-pointer bg-[var(--surface-2)] hover:bg-[var(--surface)] hover:border-[var(--accent-gold)] transition-all duration-300 group"
             >
-              <span className="text-2xl mb-2">📎</span>
+              <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white border border-[var(--border)] mb-4 group-hover:border-[var(--accent-gold)] transition-colors text-[var(--accent)] font-serif italic text-xl">
+                D
+              </div>
               {file ? (
-                <span className="text-sm font-medium text-indigo-600">{file.name}</span>
+                <span className="text-sm font-medium text-[var(--accent)] text-center">{file.name}</span>
               ) : (
-                <>
-                  <span className="text-sm text-slate-500">Click to select a file</span>
-                  <span className="text-xs text-slate-400 mt-1">PDF, DOCX, PPTX — max 20 MB</span>
-                </>
+                <div className="text-center">
+                  <span className="block text-sm text-[var(--ink-mid)] mb-1">Click to select document</span>
+                  <span className="block text-[10px] font-mono tracking-widest text-[var(--ink-muted)]">PDF, DOCX, PPTX (MAX 20MB)</span>
+                </div>
               )}
-              <input
-                id="upload-file"
-                type="file"
-                accept=".pdf,.doc,.docx,.ppt,.pptx"
-                onChange={handleFile}
-                className="sr-only"
-              />
+              <input type="file" accept=".pdf,.doc,.docx,.ppt,.pptx" onChange={handleFile} className="sr-only" />
             </label>
           </div>
 
-          <button
-            id="upload-submit"
-            type="submit"
-            disabled={loading}
-            className="w-full bg-indigo-600 text-white text-sm font-semibold py-2.5 rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-60"
-          >
-            {loading ? 'Uploading…' : 'Upload Resource'}
-          </button>
+          <div className="pt-6 border-t border-[var(--border)] flex justify-end gap-4">
+            <button
+              type="button"
+              onClick={() => navigate('/dashboard')}
+              className="px-6 py-3 border border-[var(--border)] text-[var(--ink-mid)] text-sm tracking-wide hover:bg-[var(--surface-2)] hover:text-[var(--ink)] transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="px-8 py-3 bg-[var(--accent)] text-white text-sm tracking-wide hover:bg-[var(--ink)] transition-colors disabled:opacity-50"
+            >
+              {loading ? 'Depositing...' : 'Submit Deposit'}
+            </button>
+          </div>
         </form>
       </Card>
     </div>
