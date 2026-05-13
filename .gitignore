@@ -191,3 +191,16 @@ skills/**/artifacts/
 *.bak
 *.tmp
 *.temp
+
+# =========================
+
+# Agent Data
+
+# =========================
+
+.agents/
+ANTI_PATTERNS.md
+DEPENDENCIES.md
+SKILLS.md
+WORKFLOWS.md
+skills-lock.json
