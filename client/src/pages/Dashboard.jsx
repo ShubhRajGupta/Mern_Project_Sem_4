@@ -1,124 +1,195 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Card from '../components/Card'
+import { classNotes, pyqs, videos, cheatsheets, researchPapers, interviewPrep } from '../data/resources'
 
-const SAMPLE_RESOURCES = [
-  { _id: '1', title: 'Advanced Data Structures Compendium', subject: 'CS', sem: 3, type: 'PDF', by: 'Rahul S.', date: 'Oct 2025', color: 'from-blue-500/10' },
-  { _id: '2', title: 'Database Systems Architecture & Normalization', subject: 'CS', sem: 4, type: 'PDF', by: 'Priya M.', date: 'Nov 2025', color: 'from-indigo-500/10' },
-  { _id: '3', title: 'Applied Mathematics II: Fourier Series', subject: 'MATH', sem: 2, type: 'PPTX', by: 'Aryan K.', date: 'Sep 2025', color: 'from-amber-500/10' },
-  { _id: '4', title: 'Operating Systems Principles: Memory Management', subject: 'CS', sem: 5, type: 'PDF', by: 'Sneha L.', date: 'Dec 2025', color: 'from-blue-500/10' },
-  { _id: '5', title: 'Classical Mechanics Laboratory Manual', subject: 'PHY', sem: 1, type: 'DOCX', by: 'Dev P.', date: 'Aug 2025', color: 'from-emerald-500/10' },
-  { _id: '6', title: 'Network Protocols Packet Analysis (Wireshark)', subject: 'CS', sem: 5, type: 'PDF', by: 'Nisha R.', date: 'Jan 2026', color: 'from-blue-500/10' },
-  { _id: '7', title: 'Quantum Mechanics: Wave Functions', subject: 'PHY', sem: 4, type: 'PDF', by: 'Anjali T.', date: 'Feb 2026', color: 'from-emerald-500/10' },
-  { _id: '8', title: 'Macroeconomics: Fiscal Policy Notes', subject: 'ECON', sem: 3, type: 'DOCX', by: 'Vikram B.', date: 'Mar 2026', color: 'from-rose-500/10' },
-  { _id: '9', title: 'Linear Algebra: Eigenvalues and Eigenvectors', subject: 'MATH', sem: 2, type: 'PDF', by: 'Rohan D.', date: 'Apr 2026', color: 'from-amber-500/10' },
-  { _id: '10', title: 'Machine Learning: Neural Networks Slides', subject: 'CS', sem: 6, type: 'PPTX', by: 'Siddharth V.', date: 'May 2026', color: 'from-indigo-500/10' },
-  { _id: '11', title: 'Thermodynamics Laws & Entropy', subject: 'PHY', sem: 3, type: 'PDF', by: 'Karan M.', date: 'Jun 2026', color: 'from-emerald-500/10' },
-  { _id: '12', title: 'Software Engineering Agile Frameworks', subject: 'CS', sem: 5, type: 'DOCX', by: 'Pooja J.', date: 'Jul 2026', color: 'from-blue-500/10' },
-  { _id: '13', title: 'Probability and Statistics Exam Solutions', subject: 'MATH', sem: 4, type: 'PDF', by: 'Neha S.', date: 'Aug 2026', color: 'from-amber-500/10' },
-  { _id: '14', title: 'Financial Accounting Fundamentals', subject: 'ECON', sem: 1, type: 'PPTX', by: 'Amit R.', date: 'Sep 2026', color: 'from-rose-500/10' },
-  { _id: '15', title: 'Computer Architecture RISC vs CISC', subject: 'CS', sem: 4, type: 'PDF', by: 'Gaurav K.', date: 'Oct 2026', color: 'from-indigo-500/10' },
-  { _id: '16', title: 'Differential Equations Boundary Value Problems', subject: 'MATH', sem: 3, type: 'DOCX', by: 'Divya P.', date: 'Nov 2026', color: 'from-amber-500/10' },
-  { _id: '17', title: 'Electromagnetism Maxwell Equations', subject: 'PHY', sem: 5, type: 'PDF', by: 'Tarun B.', date: 'Dec 2026', color: 'from-emerald-500/10' },
-  { _id: '18', title: 'Compiler Design Lexical Analysis', subject: 'CS', sem: 6, type: 'PPTX', by: 'Shruti M.', date: 'Jan 2027', color: 'from-blue-500/10' }
-]
-
-const SUBJECTS = ['All', 'CS', 'MATH', 'PHY', 'ECON']
+const TABS = ['Overview', 'Class Notes', 'PYQs & Solutions', 'Video Lectures', 'Cheat Sheets', 'Research Papers', 'Interview Prep']
 
 function Dashboard() {
-  const [search, setSearch] = useState('')
-  const [subject, setSubject] = useState('All')
+  const [activeTab, setActiveTab] = useState('Overview')
+  
+  // Card Renderers
+  const renderNoteCard = (note) => (
+    <Card key={note.id} className="p-6 relative overflow-hidden group h-full flex flex-col">
+      {note.featured && (
+        <div className="absolute top-0 right-0 bg-[var(--accent-gold)] text-white text-[9px] font-bold px-3 py-1 uppercase tracking-widest z-10 shadow-sm">
+          Recommended
+        </div>
+      )}
+      <div className="flex items-center justify-between mb-4">
+        <span className="text-[10px] font-mono tracking-widest text-[var(--ink-muted)] border border-[var(--border)] px-2 py-1 bg-[var(--surface)]">
+          {note.type} • Sem {note.sem}
+        </span>
+      </div>
+      <h3 className="font-serif text-lg text-[var(--accent)] mb-2 group-hover:text-[var(--accent-gold)] transition-colors pr-8 leading-snug">{note.title}</h3>
+      <p className="text-xs font-bold text-[var(--ink-mid)] mt-auto pt-4 border-t border-[var(--surface-2)]">{note.subject}</p>
+    </Card>
+  )
 
-  const filtered = SAMPLE_RESOURCES.filter((r) => {
-    const matchSubject = subject === 'All' || r.subject === subject
-    const matchSearch  = r.title.toLowerCase().includes(search.toLowerCase())
-    return matchSubject && matchSearch
-  })
+  const renderPYQCard = (pyq) => (
+    <Card key={pyq.id} className="p-6 relative border-l-4 border-l-[var(--accent)] h-full flex flex-col group">
+      <div className="mb-2 text-xs font-bold text-[var(--accent-gold)]">{pyq.year}</div>
+      <h3 className="font-serif text-lg text-[var(--accent)] mb-2 group-hover:text-[var(--accent-gold)] transition-colors">{pyq.title}</h3>
+      <div className="mt-auto pt-4 flex justify-between items-center text-[10px] uppercase tracking-widest text-[var(--ink-muted)]">
+        <span className="bg-[var(--surface)] px-2 py-1 border border-[var(--border)]">{pyq.subject}</span>
+        <span>{pyq.type}</span>
+      </div>
+    </Card>
+  )
+
+  const renderVideoCard = (vid) => (
+    <a key={vid.id} href={vid.link} target="_blank" rel="noopener noreferrer" className="relative overflow-hidden group flex flex-col h-full bg-white border border-[var(--border)] hover:border-[var(--accent-gold)] transition-colors rounded-sm shadow-sm hover:shadow-md">
+      <div className="h-32 relative border-b border-[var(--border)]">
+        <img src={vid.thumbnail} alt={vid.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center pl-1 shadow-lg transform group-hover:scale-110 transition-transform">
+            <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[8px] border-l-[var(--accent)] border-b-[6px] border-b-transparent"></div>
+          </div>
+        </div>
+        <div className="absolute bottom-2 left-2 right-2 text-[9px] uppercase tracking-widest text-white/90 font-bold drop-shadow-md">
+          {vid.provider}
+        </div>
+      </div>
+      <div className="p-4 flex flex-col flex-grow">
+        <h3 className="font-serif text-sm text-[var(--accent)] mb-1 leading-snug line-clamp-2">{vid.title}</h3>
+        <p className="text-[10px] uppercase tracking-widest text-[var(--ink-muted)] mt-auto pt-3 border-t border-[var(--surface-2)]">{vid.subject}</p>
+      </div>
+    </a>
+  )
+
+  const renderCheatsheetCard = (sheet) => (
+    <Card key={sheet.id} className="p-6 flex items-center justify-between group hover:bg-[var(--surface-2)] transition-colors border-dashed hover:border-solid hover:border-[var(--accent-gold)]">
+      <div>
+        <h3 className="font-serif text-lg text-[var(--accent)] group-hover:text-[var(--accent-gold)] transition-colors">{sheet.title}</h3>
+        <p className="text-xs text-[var(--ink-muted)] mt-1">{sheet.subject} • {sheet.type}</p>
+      </div>
+      <button className="px-5 py-2 border border-[var(--border)] bg-white text-xs text-[var(--ink)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors uppercase tracking-widest">
+        View
+      </button>
+    </Card>
+  )
+
+  const renderResearchCard = (paper) => (
+    <Card key={paper.id} className="p-6 flex flex-col md:flex-row md:items-center justify-between group hover:border-[var(--accent)] transition-colors">
+      <div>
+        <h3 className="font-serif text-lg text-[var(--accent)] group-hover:text-[var(--accent-gold)] transition-colors">{paper.title}</h3>
+        <p className="text-sm text-[var(--ink-mid)] mt-1">By {paper.author} — Published {paper.year}</p>
+      </div>
+      <div className="mt-4 md:mt-0 text-[10px] font-bold uppercase tracking-widest text-[var(--accent-gold)] border border-[var(--accent-gold)] px-3 py-1 bg-white self-start md:self-auto">
+        {paper.subject}
+      </div>
+    </Card>
+  )
+
+  const renderInterviewCard = (prep) => (
+    <Card key={prep.id} className="p-6 text-center group hover:-translate-y-1 transition-transform duration-300 border-t-4 border-t-[var(--ink-muted)] hover:border-t-[var(--accent)]">
+      <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-4 border border-[var(--border)] shadow-sm group-hover:scale-110 transition-transform">
+        <span className="text-[var(--accent-gold)] text-xl font-serif">I</span>
+      </div>
+      <h3 className="font-serif text-[var(--accent)] mb-2 group-hover:text-[var(--accent-gold)] transition-colors">{prep.title}</h3>
+      <p className="text-[10px] uppercase tracking-widest text-[var(--ink-muted)]">{prep.subject}</p>
+    </Card>
+  )
+
+  // Full Tab Renderers
+  const renderNotes = () => <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{classNotes.map(renderNoteCard)}</div>
+  const renderPYQs = () => <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{pyqs.map(renderPYQCard)}</div>
+  const renderVideos = () => <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">{videos.map(renderVideoCard)}</div>
+  const renderCheatsheets = () => <div className="grid grid-cols-1 md:grid-cols-2 gap-6">{cheatsheets.map(renderCheatsheetCard)}</div>
+  const renderResearch = () => <div className="space-y-4">{researchPapers.map(renderResearchCard)}</div>
+  const renderInterview = () => <div className="grid grid-cols-1 md:grid-cols-3 gap-6">{interviewPrep.map(renderInterviewCard)}</div>
+
+  // The All-in-One Overview Tab
+  const renderOverview = () => (
+    <div className="space-y-16 pb-12">
+      <section>
+        <div className="flex justify-between items-end mb-6 border-b border-[var(--border)] pb-2">
+          <h2 className="text-2xl font-serif text-[var(--accent)]">Featured Video Lectures</h2>
+          <button onClick={() => setActiveTab('Video Lectures')} className="text-xs font-bold uppercase tracking-widest text-[var(--accent-gold)] hover:text-[var(--accent)] transition-colors">View All &rarr;</button>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {videos.slice(0, 4).map(renderVideoCard)}
+        </div>
+      </section>
+
+      <section>
+        <div className="flex justify-between items-end mb-6 border-b border-[var(--border)] pb-2">
+          <h2 className="text-2xl font-serif text-[var(--accent)]">Recent Class Notes</h2>
+          <button onClick={() => setActiveTab('Class Notes')} className="text-xs font-bold uppercase tracking-widest text-[var(--accent-gold)] hover:text-[var(--accent)] transition-colors">View All &rarr;</button>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {classNotes.slice(0, 3).map(renderNoteCard)}
+        </div>
+      </section>
+
+      <section>
+        <div className="flex justify-between items-end mb-6 border-b border-[var(--border)] pb-2">
+          <h2 className="text-2xl font-serif text-[var(--accent)]">Top PYQs & Solutions</h2>
+          <button onClick={() => setActiveTab('PYQs & Solutions')} className="text-xs font-bold uppercase tracking-widest text-[var(--accent-gold)] hover:text-[var(--accent)] transition-colors">View All &rarr;</button>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {pyqs.slice(0, 3).map(renderPYQCard)}
+        </div>
+      </section>
+      
+      <section>
+        <div className="flex justify-between items-end mb-6 border-b border-[var(--border)] pb-2">
+          <h2 className="text-2xl font-serif text-[var(--accent)]">Seminal Research Papers</h2>
+          <button onClick={() => setActiveTab('Research Papers')} className="text-xs font-bold uppercase tracking-widest text-[var(--accent-gold)] hover:text-[var(--accent)] transition-colors">View All &rarr;</button>
+        </div>
+        <div className="space-y-4">
+          {researchPapers.slice(0, 3).map(renderResearchCard)}
+        </div>
+      </section>
+    </div>
+  )
 
   return (
-    <div className="space-y-12">
-      {/* ── Header ────────────────────────────────────────────────────────── */}
+    <div className="space-y-10">
+      {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[var(--border)]">
         <div>
           <p className="text-[11px] font-medium uppercase tracking-widest mb-2 text-[var(--accent-gold)]">
-            Repository
+            Student Centric Platform
           </p>
-          <h1 className="text-4xl font-serif text-[var(--accent)]">Library Catalog</h1>
+          <h1 className="text-4xl font-serif text-[var(--accent)]">Repository Hub</h1>
         </div>
         <Link
           to="/upload"
           className="inline-flex items-center justify-center px-6 py-2.5 bg-[var(--accent)] text-white text-sm tracking-wide hover:bg-[var(--ink)] transition-colors"
         >
-          Deposit Document
+          Deposit Work
         </Link>
       </div>
 
-      {/* ── Filters ───────────────────────────────────────────────────────── */}
-      <div className="flex flex-col md:flex-row gap-6">
-        <div className="flex-1 relative">
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by title, author, or keyword..."
-            className="w-full px-4 py-3 bg-white border border-[var(--border)] text-sm focus:outline-none focus:border-[var(--accent-gold)] transition-colors placeholder:text-[var(--ink-muted)]"
-          />
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {SUBJECTS.map((s) => (
-            <button
-              key={s}
-              onClick={() => setSubject(s)}
-              className={`px-5 py-3 text-xs tracking-wider uppercase transition-colors border ${
-                subject === s
-                  ? 'border-[var(--accent)] bg-[var(--accent)] text-white'
-                  : 'border-[var(--border)] bg-white text-[var(--ink-mid)] hover:border-[var(--accent-gold)] hover:text-[var(--accent)]'
-              }`}
-            >
-              {s}
-            </button>
-          ))}
-        </div>
+      {/* Tabs */}
+      <div className="flex overflow-x-auto pb-2 -mb-2 gap-2 hide-scrollbar">
+        {TABS.map(tab => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`whitespace-nowrap px-6 py-3 text-xs uppercase font-bold tracking-widest transition-all border ${
+              activeTab === tab 
+              ? 'border-[var(--accent)] bg-[var(--accent)] text-white' 
+              : 'border-[var(--border)] bg-white text-[var(--ink-mid)] hover:border-[var(--accent-gold)] hover:text-[var(--accent)]'
+            }`}
+          >
+            {tab}
+          </button>
+        ))}
       </div>
 
-      {/* ── Grid ──────────────────────────────────────────────────────────── */}
-      {filtered.length === 0 ? (
-        <div className="py-24 text-center border border-[var(--border)] bg-white border-dashed">
-          <p className="font-serif text-xl text-[var(--ink-muted)]">No documents match your inquiry.</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((resource) => (
-            <Link key={resource._id} to={`/resource/${resource._id}`} className="group block h-full">
-              <Card className="h-full p-8 flex flex-col relative overflow-hidden">
-                {/* Decorative subtle accent line on hover */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-[var(--accent-gold)] transform origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100 z-10"></div>
-                
-                <div className="-mx-8 -mt-8 mb-6 h-40 relative overflow-hidden bg-[var(--surface-2)] border-b border-[var(--border)]">
-                  <img src="/assets/doc_thumbnail.png" alt="Document cover" className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-700" />
-                  <div className={`absolute inset-0 bg-gradient-to-t ${resource.color || 'from-white'} via-white/20 to-transparent`}></div>
-                </div>
-                
-                <div className="flex items-center justify-between mb-6 relative z-10">
-                  <span className="text-[10px] font-mono tracking-widest text-[var(--ink-muted)] border border-[var(--border)] px-2 py-1 bg-[var(--surface)]">
-                    {resource.type}
-                  </span>
-                  <span className="text-xs text-[var(--ink-muted)]">{resource.date}</span>
-                </div>
-                
-                <h2 className="font-serif text-xl text-[var(--accent)] mb-4 leading-snug group-hover:text-[var(--accent-gold)] transition-colors">
-                  {resource.title}
-                </h2>
-                
-                <div className="mt-auto pt-6 border-t border-[var(--border)] flex justify-between items-center text-xs text-[var(--ink-mid)]">
-                  <span>Sem {resource.sem} · {resource.subject}</span>
-                  <span className="font-medium">{resource.by}</span>
-                </div>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      )}
+      {/* Dynamic Content Area */}
+      <div className="pt-4 min-h-[50vh]">
+        {activeTab === 'Overview' && renderOverview()}
+        {activeTab === 'Class Notes' && renderNotes()}
+        {activeTab === 'PYQs & Solutions' && renderPYQs()}
+        {activeTab === 'Video Lectures' && renderVideos()}
+        {activeTab === 'Cheat Sheets' && renderCheatsheets()}
+        {activeTab === 'Research Papers' && renderResearch()}
+        {activeTab === 'Interview Prep' && renderInterview()}
+      </div>
     </div>
   )
 }

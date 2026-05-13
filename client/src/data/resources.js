@@ -1,0 +1,102 @@
+// Massive populated resource dataset
+
+export const classNotes = [
+  { id: 'n1', title: 'Data Structures: Arrays & Linked Lists', subject: 'DSA', sem: 3, type: 'PDF', featured: true },
+  { id: 'n2', title: 'Operating Systems: Process Synchronization', subject: 'OS', sem: 4, type: 'PDF', featured: true },
+  { id: 'n3', title: 'Database Normalization Complete Guide (1NF to BCNF)', subject: 'DBMS', sem: 4, type: 'PDF', featured: true },
+  { id: 'n4', title: 'Computer Networks: OSI & TCP/IP Models', subject: 'CN', sem: 5, type: 'PPTX', featured: false },
+  { id: 'n5', title: 'Engineering Mathematics: Multivariable Calculus', subject: 'Mathematics', sem: 1, type: 'PDF', featured: false },
+  { id: 'n6', title: 'Quantum Physics Fundamentals & Wave Equations', subject: 'Physics', sem: 2, type: 'DOCX', featured: false },
+  { id: 'n7', title: 'Digital Electronics: Logic Gates & Flip Flops', subject: 'Electronics', sem: 3, type: 'PDF', featured: true },
+  { id: 'n8', title: 'Advanced Graph Algorithms (Dijkstra, Bellman-Ford)', subject: 'DSA', sem: 3, type: 'PDF', featured: false },
+  { id: 'n9', title: 'Machine Learning: Supervised vs Unsupervised', subject: 'AI/ML', sem: 6, type: 'PDF', featured: true },
+  { id: 'n10', title: 'Theory of Computation: Automata & Turing Machines', subject: 'CS', sem: 5, type: 'PDF', featured: false },
+  { id: 'n11', title: 'Compiler Design: Lexical Analysis Phase', subject: 'CS', sem: 6, type: 'PPTX', featured: false },
+  { id: 'n12', title: 'Cryptography: RSA & AES Algorithms', subject: 'Security', sem: 7, type: 'PDF', featured: true },
+  { id: 'n13', title: 'Software Engineering: Agile vs Waterfall', subject: 'SE', sem: 5, type: 'DOCX', featured: false },
+  { id: 'n14', title: 'Microprocessors: 8085 Architecture', subject: 'Electronics', sem: 4, type: 'PDF', featured: false },
+  { id: 'n15', title: 'Computer Architecture: Pipelining & Hazards', subject: 'CS', sem: 4, type: 'PDF', featured: true },
+  { id: 'n16', title: 'Linear Algebra: Eigenvalues & Eigenvectors', subject: 'Mathematics', sem: 2, type: 'PDF', featured: false },
+  { id: 'n17', title: 'Cloud Computing: AWS & Virtualization', subject: 'Cloud', sem: 7, type: 'PPTX', featured: true },
+  { id: 'n18', title: 'Internet of Things: Sensor Networks', subject: 'IoT', sem: 8, type: 'PDF', featured: false },
+  { id: 'n19', title: 'Data Mining & Data Warehousing', subject: 'DBMS', sem: 6, type: 'DOCX', featured: false },
+  { id: 'n20', title: 'Object Oriented Programming in C++', subject: 'CS', sem: 2, type: 'PDF', featured: true },
+];
+
+export const pyqs = [
+  { id: 'p1', title: 'DSA Mid Semester Examination 2023', subject: 'DSA', year: '2023', type: 'Mid Sem' },
+  { id: 'p2', title: 'OS Final Semester Examination 2022', subject: 'OS', year: '2022', type: 'Final Sem' },
+  { id: 'p3', title: 'DBMS Previous Year Questions 2020-2023', subject: 'DBMS', year: '2020-2023', type: 'Question Bank' },
+  { id: 'p4', title: 'Computer Networks Mid Sem Solutions 2023', subject: 'CN', year: '2023', type: 'Solutions' },
+  { id: 'p5', title: 'Engineering Math Final Examination 2023', subject: 'Mathematics', year: '2023', type: 'Final Sem' },
+  { id: 'p6', title: 'Electronics Unit Tests Question Bank', subject: 'Electronics', year: '2023', type: 'Question Bank' },
+  { id: 'p7', title: 'Machine Learning End Sem 2022', subject: 'AI/ML', year: '2022', type: 'Final Sem' },
+  { id: 'p8', title: 'Theory of Computation Mid Sem 2021', subject: 'CS', year: '2021', type: 'Mid Sem' },
+  { id: 'p9', title: 'Compiler Design Solutions 2022', subject: 'CS', year: '2022', type: 'Solutions' },
+  { id: 'p10', title: 'Cryptography Final Exam 2023', subject: 'Security', year: '2023', type: 'Final Sem' },
+  { id: 'p11', title: 'Software Engineering Mid Sem 2020', subject: 'SE', year: '2020', type: 'Mid Sem' },
+  { id: 'p12', title: 'Microprocessors Final Sem 2021', subject: 'Electronics', year: '2021', type: 'Final Sem' },
+  { id: 'p13', title: 'Computer Architecture QB 2019-2022', subject: 'CS', year: '2019-2022', type: 'Question Bank' },
+  { id: 'p14', title: 'Linear Algebra Mid Sem 2023', subject: 'Mathematics', year: '2023', type: 'Mid Sem' },
+  { id: 'p15', title: 'Cloud Computing Final Exam 2022', subject: 'Cloud', year: '2022', type: 'Final Sem' },
+];
+
+export const videos = [
+  { id: 'v1', title: 'Data Structures and Algorithms in C/C++', provider: 'Abdul Bari', subject: 'DSA', link: 'https://www.youtube.com/playlist?list=PLBlnK6fEyqRj9lld8sWIUNwlKfdUoPd1Y', thumbnail: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop' },
+  { id: 'v2', title: 'Operating Systems Full Course', provider: 'Neso Academy', subject: 'OS', link: 'https://www.youtube.com/playlist?list=PLBlnK6fEyqRiVhbXDGLXDk_OQAeuVcp2O', thumbnail: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop' },
+  { id: 'v3', title: 'Computer Networks Full Playlist', provider: 'Neso Academy', subject: 'CN', link: 'https://www.youtube.com/playlist?list=PLBlnK6fEyqRgMCUAGOsZVn_a141nU980D', thumbnail: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=600&auto=format&fit=crop' },
+  { id: 'v4', title: 'Database Management Systems (DBMS)', provider: 'Gate Smashers', subject: 'DBMS', link: 'https://www.youtube.com/playlist?list=PLxCzCOWd7aiFAN6I8CuViBuCdJgiOkT2Y', thumbnail: 'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?q=80&w=600&auto=format&fit=crop' },
+  { id: 'v5', title: 'MIT 18.06 Linear Algebra', provider: 'MIT OCW', subject: 'Mathematics', link: 'https://www.youtube.com/playlist?list=PLE7DDD91010BC51F8', thumbnail: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=600&auto=format&fit=crop' },
+  { id: 'v6', title: 'Theory of Computation', provider: 'Gate Smashers', subject: 'CS', link: 'https://www.youtube.com/playlist?list=PLxCzCOWd7aiFM9Pt5oqlQRm0efpeUZMnd', thumbnail: 'https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=600&auto=format&fit=crop' },
+  { id: 'v7', title: 'Compiler Design Playlist', provider: 'Gate Smashers', subject: 'CS', link: 'https://www.youtube.com/playlist?list=PLxCzCOWd7aiGz9donHRrE9I3Mwn6XdP8p', thumbnail: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?q=80&w=600&auto=format&fit=crop' },
+  { id: 'v8', title: 'Machine Learning by Andrew Ng', provider: 'Stanford', subject: 'AI/ML', link: 'https://www.youtube.com/playlist?list=PLLssT5z_DsK-h9vYZkQkYNWcItqhlRJLN', thumbnail: 'https://images.unsplash.com/photo-1507146426996-ef05306b995a?q=80&w=600&auto=format&fit=crop' },
+  { id: 'v9', title: 'Digital Electronics Complete', provider: 'Neso Academy', subject: 'Electronics', link: 'https://www.youtube.com/playlist?list=PLBlnK6fEyqRjMH3mWf6kwqiTbT798eAOm', thumbnail: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop' },
+  { id: 'v10', title: 'Software Engineering Tutorials', provider: 'Gate Smashers', subject: 'SE', link: 'https://www.youtube.com/playlist?list=PLxCzCOWd7aiEed7z1D2x3aqTjFvFvO0L5', thumbnail: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop' },
+  { id: 'v11', title: 'Cryptography and Network Security', provider: 'NPTEL', subject: 'Security', link: 'https://www.youtube.com/playlist?list=PLbRMhDVUMngfpeZsH7GDzEw7l8-YvV125', thumbnail: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=600&auto=format&fit=crop' },
+  { id: 'v12', title: 'Web Development Bootcamp', provider: 'FreeCodeCamp', subject: 'Web Dev', link: 'https://www.youtube.com/watch?v=mU6anWqZJcc', thumbnail: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=600&auto=format&fit=crop' },
+];
+
+export const cheatsheets = [
+  { id: 'c1', title: 'SQL Queries Cheat Sheet', subject: 'DBMS', type: 'Cheat Sheet' },
+  { id: 'c2', title: 'Linux Commands Quick Reference', subject: 'OS', type: 'Cheat Sheet' },
+  { id: 'c3', title: 'Time & Space Complexity Chart', subject: 'DSA', type: 'Cheat Sheet' },
+  { id: 'c4', title: 'Frontend Developer Roadmap 2025', subject: 'Web Dev', type: 'Roadmap' },
+  { id: 'c5', title: 'Backend Developer Roadmap 2025', subject: 'Web Dev', type: 'Roadmap' },
+  { id: 'c6', title: 'Git & GitHub Cheat Sheet', subject: 'Tools', type: 'Cheat Sheet' },
+  { id: 'c7', title: 'React.js Component Lifecycle', subject: 'Web Dev', type: 'Cheat Sheet' },
+  { id: 'c8', title: 'Docker Commands Reference', subject: 'DevOps', type: 'Cheat Sheet' },
+  { id: 'c9', title: 'Regular Expressions (RegEx) Guide', subject: 'CS', type: 'Cheat Sheet' },
+  { id: 'c10', title: 'Python Basics Cheat Sheet', subject: 'Programming', type: 'Cheat Sheet' },
+  { id: 'c11', title: 'Vim Editor Shortcuts', subject: 'Tools', type: 'Cheat Sheet' },
+  { id: 'c12', title: 'AWS Services Roadmap', subject: 'Cloud', type: 'Roadmap' },
+  { id: 'c13', title: 'Cybersecurity Analyst Roadmap', subject: 'Security', type: 'Roadmap' },
+  { id: 'c14', title: 'Machine Learning Algorithms Map', subject: 'AI/ML', type: 'Cheat Sheet' },
+];
+
+export const researchPapers = [
+  { id: 'r1', title: 'Attention Is All You Need', subject: 'AI/ML', author: 'Vaswani et al.', year: '2017' },
+  { id: 'r2', title: 'A Mathematical Theory of Communication', subject: 'CN', author: 'C.E. Shannon', year: '1948' },
+  { id: 'r3', title: 'The Google File System', subject: 'OS', author: 'Ghemawat et al.', year: '2003' },
+  { id: 'r4', title: 'MapReduce: Simplified Data Processing', subject: 'OS', author: 'Dean, Ghemawat', year: '2004' },
+  { id: 'r5', title: 'Dynamo: Amazons Highly Available Key-value Store', subject: 'DBMS', author: 'DeCandia et al.', year: '2007' },
+  { id: 'r6', title: 'Spanner: Googles Globally-Distributed Database', subject: 'DBMS', author: 'Corbett et al.', year: '2012' },
+  { id: 'r7', title: 'ResNet: Deep Residual Learning for Image Recognition', subject: 'AI/ML', author: 'He et al.', year: '2015' },
+  { id: 'r8', title: 'BERT: Pre-training of Deep Bidirectional Transformers', subject: 'AI/ML', author: 'Devlin et al.', year: '2018' },
+  { id: 'r9', title: 'In Search of an Understandable Consensus Algorithm (Raft)', subject: 'CS', author: 'Ongaro, Ousterhout', year: '2014' },
+  { id: 'r10', title: 'The Part-Time Parliament (Paxos)', subject: 'CS', author: 'Leslie Lamport', year: '1998' },
+  { id: 'r11', title: 'Bitcoin: A Peer-to-Peer Electronic Cash System', subject: 'Security', author: 'Satoshi Nakamoto', year: '2008' },
+  { id: 'r12', title: 'Chord: A Scalable Peer-to-peer Lookup Service', subject: 'CN', author: 'Stoica et al.', year: '2001' },
+];
+
+export const interviewPrep = [
+  { id: 'i1', title: 'Blind 75 LeetCode Questions', subject: 'DSA', type: 'Coding Sheet' },
+  { id: 'i2', title: 'NeetCode 150 Practice List', subject: 'DSA', type: 'Coding Sheet' },
+  { id: 'i3', title: 'Core CS Questions (OS/DBMS/CN)', subject: 'Core CS', type: 'Interview Guide' },
+  { id: 'i4', title: 'HR Round Behavioral Questions', subject: 'HR', type: 'Interview Guide' },
+  { id: 'i5', title: 'System Design Interview Roadmap', subject: 'System Design', type: 'Interview Guide' },
+  { id: 'i6', title: 'Top 100 Aptitude Questions (TCS/Infosys)', subject: 'Aptitude', type: 'Coding Sheet' },
+  { id: 'i7', title: 'Frontend Machine Coding Rounds', subject: 'Web Dev', type: 'Interview Guide' },
+  { id: 'i8', title: 'SQL Top 50 Interview Queries', subject: 'DBMS', type: 'Coding Sheet' },
+  { id: 'i9', title: 'Object Oriented Programming (OOPs) Cheatsheet', subject: 'Core CS', type: 'Interview Guide' },
+  { id: 'i10', title: 'Quantitative Aptitude Formulas', subject: 'Aptitude', type: 'Cheat Sheet' },
+];
