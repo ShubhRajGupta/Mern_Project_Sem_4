@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom'
 
 const navItems = [
   { to: '/dashboard', label: 'Library Catalog' },
+  { to: '/library',   label: 'Academic Books' },
   { to: '/upload',    label: 'Deposit Work' },
 ]
 

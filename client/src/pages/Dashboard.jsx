@@ -3,15 +3,27 @@ import { Link } from 'react-router-dom'
 import Card from '../components/Card'
 
 const SAMPLE_RESOURCES = [
-  { _id: '1', title: 'Data Structures Compendium', subject: 'CS', sem: 3, type: 'PDF', by: 'Rahul S.', date: 'Oct 2025' },
-  { _id: '2', title: 'Database Systems Architecture', subject: 'CS', sem: 4, type: 'PDF', by: 'Priya M.', date: 'Nov 2025' },
-  { _id: '3', title: 'Applied Mathematics II', subject: 'MATH', sem: 2, type: 'PPTX', by: 'Aryan K.', date: 'Sep 2025' },
-  { _id: '4', title: 'Operating Systems Principles', subject: 'CS', sem: 5, type: 'PDF', by: 'Sneha L.', date: 'Dec 2025' },
-  { _id: '5', title: 'Classical Mechanics Laboratory', subject: 'PHY', sem: 1, type: 'DOCX', by: 'Dev P.', date: 'Aug 2025' },
-  { _id: '6', title: 'Network Protocols Analysis', subject: 'CS', sem: 5, type: 'PDF', by: 'Nisha R.', date: 'Jan 2026' },
+  { _id: '1', title: 'Advanced Data Structures Compendium', subject: 'CS', sem: 3, type: 'PDF', by: 'Rahul S.', date: 'Oct 2025', color: 'from-blue-500/10' },
+  { _id: '2', title: 'Database Systems Architecture & Normalization', subject: 'CS', sem: 4, type: 'PDF', by: 'Priya M.', date: 'Nov 2025', color: 'from-indigo-500/10' },
+  { _id: '3', title: 'Applied Mathematics II: Fourier Series', subject: 'MATH', sem: 2, type: 'PPTX', by: 'Aryan K.', date: 'Sep 2025', color: 'from-amber-500/10' },
+  { _id: '4', title: 'Operating Systems Principles: Memory Management', subject: 'CS', sem: 5, type: 'PDF', by: 'Sneha L.', date: 'Dec 2025', color: 'from-blue-500/10' },
+  { _id: '5', title: 'Classical Mechanics Laboratory Manual', subject: 'PHY', sem: 1, type: 'DOCX', by: 'Dev P.', date: 'Aug 2025', color: 'from-emerald-500/10' },
+  { _id: '6', title: 'Network Protocols Packet Analysis (Wireshark)', subject: 'CS', sem: 5, type: 'PDF', by: 'Nisha R.', date: 'Jan 2026', color: 'from-blue-500/10' },
+  { _id: '7', title: 'Quantum Mechanics: Wave Functions', subject: 'PHY', sem: 4, type: 'PDF', by: 'Anjali T.', date: 'Feb 2026', color: 'from-emerald-500/10' },
+  { _id: '8', title: 'Macroeconomics: Fiscal Policy Notes', subject: 'ECON', sem: 3, type: 'DOCX', by: 'Vikram B.', date: 'Mar 2026', color: 'from-rose-500/10' },
+  { _id: '9', title: 'Linear Algebra: Eigenvalues and Eigenvectors', subject: 'MATH', sem: 2, type: 'PDF', by: 'Rohan D.', date: 'Apr 2026', color: 'from-amber-500/10' },
+  { _id: '10', title: 'Machine Learning: Neural Networks Slides', subject: 'CS', sem: 6, type: 'PPTX', by: 'Siddharth V.', date: 'May 2026', color: 'from-indigo-500/10' },
+  { _id: '11', title: 'Thermodynamics Laws & Entropy', subject: 'PHY', sem: 3, type: 'PDF', by: 'Karan M.', date: 'Jun 2026', color: 'from-emerald-500/10' },
+  { _id: '12', title: 'Software Engineering Agile Frameworks', subject: 'CS', sem: 5, type: 'DOCX', by: 'Pooja J.', date: 'Jul 2026', color: 'from-blue-500/10' },
+  { _id: '13', title: 'Probability and Statistics Exam Solutions', subject: 'MATH', sem: 4, type: 'PDF', by: 'Neha S.', date: 'Aug 2026', color: 'from-amber-500/10' },
+  { _id: '14', title: 'Financial Accounting Fundamentals', subject: 'ECON', sem: 1, type: 'PPTX', by: 'Amit R.', date: 'Sep 2026', color: 'from-rose-500/10' },
+  { _id: '15', title: 'Computer Architecture RISC vs CISC', subject: 'CS', sem: 4, type: 'PDF', by: 'Gaurav K.', date: 'Oct 2026', color: 'from-indigo-500/10' },
+  { _id: '16', title: 'Differential Equations Boundary Value Problems', subject: 'MATH', sem: 3, type: 'DOCX', by: 'Divya P.', date: 'Nov 2026', color: 'from-amber-500/10' },
+  { _id: '17', title: 'Electromagnetism Maxwell Equations', subject: 'PHY', sem: 5, type: 'PDF', by: 'Tarun B.', date: 'Dec 2026', color: 'from-emerald-500/10' },
+  { _id: '18', title: 'Compiler Design Lexical Analysis', subject: 'CS', sem: 6, type: 'PPTX', by: 'Shruti M.', date: 'Jan 2027', color: 'from-blue-500/10' }
 ]
 
-const SUBJECTS = ['All', 'CS', 'MATH', 'PHY']
+const SUBJECTS = ['All', 'CS', 'MATH', 'PHY', 'ECON']
 
 function Dashboard() {
   const [search, setSearch] = useState('')
@@ -84,7 +96,7 @@ function Dashboard() {
                 
                 <div className="-mx-8 -mt-8 mb-6 h-40 relative overflow-hidden bg-[var(--surface-2)] border-b border-[var(--border)]">
                   <img src="/assets/doc_thumbnail.png" alt="Document cover" className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent"></div>
+                  <div className={`absolute inset-0 bg-gradient-to-t ${resource.color || 'from-white'} via-white/20 to-transparent`}></div>
                 </div>
                 
                 <div className="flex items-center justify-between mb-6 relative z-10">

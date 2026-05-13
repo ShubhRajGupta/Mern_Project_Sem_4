@@ -4,6 +4,7 @@ import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
+import Library from './pages/Library'
 import Upload from './pages/Upload'
 import ResourceDetail from './pages/ResourceDetail'
 
@@ -20,6 +21,7 @@ function App() {
       {/* App routes — wrapped in shared Layout (Navbar + Sidebar) */}
       <Route element={<Layout />}>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/library" element={<Library />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/resource/:id" element={<ResourceDetail />} />
       </Route>
