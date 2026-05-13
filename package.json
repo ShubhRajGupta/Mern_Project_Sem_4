@@ -1,0 +1,9 @@
+{
+  "name": "mern-project-sem-4",
+  "version": "1.0.0",
+  "description": "College Resource Hub",
+  "scripts": {
+    "install-client": "cd client && npm install",
+    "dev": "cd client && npm run dev"
+  }
+}
