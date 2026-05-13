@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion, useMotionValue, useTransform, animate, useInView } from 'framer-motion'
 import { BookOpen, Scroll, Users, Compass } from 'lucide-react'
 import { classNotes, videos, researchPapers } from '../data/resources'
-import Card from '../components/Card'
+import { NoteCard, VideoCard, ResearchCard } from '../components/cards'
 
 const STATS = [
   { value: 1200, suffix: '+', label: 'Academic Papers' },
@@ -176,24 +176,7 @@ function Landing() {
             <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[var(--surface-2)] to-transparent z-10 pointer-events-none"></div>
             <div className="flex gap-6 px-8 animate-marquee w-max">
               {[...videos.slice(0, 8), ...videos.slice(0, 8)].map((vid, idx) => (
-                <a key={`${vid.id}-${idx}`} href={vid.link} target="_blank" rel="noopener noreferrer" className="relative overflow-hidden group flex flex-col min-w-[280px] w-[280px] h-full bg-white border border-[var(--border)] hover:border-[var(--accent-gold)] transition-colors rounded-sm shadow-sm hover:shadow-md flex-shrink-0">
-                  <div className="h-32 relative border-b border-[var(--border)]">
-                    <img src={vid.thumbnail} alt={vid.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center pl-1 shadow-lg transform group-hover:scale-110 transition-transform">
-                        <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[8px] border-l-[var(--accent)] border-b-[6px] border-b-transparent"></div>
-                      </div>
-                    </div>
-                    <div className="absolute bottom-2 left-2 right-2 text-[9px] uppercase tracking-widest text-white/90 font-bold drop-shadow-md">
-                      {vid.provider}
-                    </div>
-                  </div>
-                  <div className="p-4 flex flex-col flex-grow">
-                    <h3 className="font-serif text-sm text-[var(--accent)] mb-1 leading-snug line-clamp-2">{vid.title}</h3>
-                    <p className="text-[10px] uppercase tracking-widest text-[var(--ink-muted)] mt-auto pt-3 border-t border-[var(--surface-2)]">{vid.subject}</p>
-                  </div>
-                </a>
+                <VideoCard key={`${vid.id}-${idx}`} vid={vid} className="min-w-[280px] w-[280px] flex-shrink-0 snap-start" />
               ))}
             </div>
           </div>
@@ -210,20 +193,7 @@ function Landing() {
             <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[var(--surface-2)] to-transparent z-10 pointer-events-none"></div>
             <div className="flex gap-6 px-8 animate-marquee w-max" style={{ animationDirection: 'reverse', animationDuration: '45s' }}>
               {[...classNotes.slice(0, 8), ...classNotes.slice(0, 8)].map((note, idx) => (
-                <Card key={`${note.id}-${idx}`} className="p-6 relative overflow-hidden group min-w-[300px] w-[300px] flex-shrink-0 flex flex-col bg-white">
-                  {note.featured && (
-                    <div className="absolute top-0 right-0 bg-[var(--accent-gold)] text-white text-[9px] font-bold px-3 py-1 uppercase tracking-widest z-10 shadow-sm">
-                      Recommended
-                    </div>
-                  )}
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-[10px] font-mono tracking-widest text-[var(--ink-muted)] border border-[var(--border)] px-2 py-1 bg-[var(--surface)]">
-                      {note.type} • Sem {note.sem}
-                    </span>
-                  </div>
-                  <h3 className="font-serif text-lg text-[var(--accent)] mb-2 group-hover:text-[var(--accent-gold)] transition-colors pr-8 leading-snug">{note.title}</h3>
-                  <p className="text-xs font-bold text-[var(--ink-mid)] mt-auto pt-4 border-t border-[var(--surface-2)]">{note.subject}</p>
-                </Card>
+                <NoteCard key={`${note.id}-${idx}`} note={note} className="min-w-[300px] w-[300px] flex-shrink-0 snap-start" />
               ))}
             </div>
           </div>
@@ -240,15 +210,7 @@ function Landing() {
             <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[var(--surface-2)] to-transparent z-10 pointer-events-none"></div>
             <div className="flex gap-6 px-8 animate-marquee w-max" style={{ animationDuration: '50s' }}>
               {[...researchPapers.slice(0, 8), ...researchPapers.slice(0, 8)].map((paper, idx) => (
-                <Card key={`${paper.id}-${idx}`} className="p-6 flex flex-col min-w-[350px] w-[350px] flex-shrink-0 group hover:border-[var(--accent)] transition-colors bg-white">
-                  <div>
-                    <h3 className="font-serif text-lg text-[var(--accent)] group-hover:text-[var(--accent-gold)] transition-colors line-clamp-2">{paper.title}</h3>
-                    <p className="text-sm text-[var(--ink-mid)] mt-2">By {paper.author} — {paper.year}</p>
-                  </div>
-                  <div className="mt-6 text-[10px] font-bold uppercase tracking-widest text-[var(--accent-gold)] border border-[var(--accent-gold)] px-3 py-1 bg-[var(--surface)] self-start mt-auto">
-                    {paper.subject}
-                  </div>
-                </Card>
+                <ResearchCard key={`${paper.id}-${idx}`} paper={paper} className="min-w-[350px] w-[350px] flex-shrink-0 snap-start bg-white" />
               ))}
             </div>
           </div>
