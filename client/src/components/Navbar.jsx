@@ -10,9 +10,7 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo / Wordmark */}
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 flex items-center justify-center border border-[var(--ink)] text-[var(--ink)] font-serif font-bold text-lg transition-colors group-hover:bg-[var(--ink)] group-hover:text-[var(--surface)]">
-            R
-          </div>
+          <img src="/assets/logo.png" alt="Resourcely Logo" className="w-8 h-8 object-cover border border-[var(--border)] rounded-sm transition-transform group-hover:scale-105" />
           <span className="font-serif font-semibold text-xl tracking-tight text-[var(--accent)]">
             Resourcely<span className="text-[var(--accent-gold)]">.</span>
           </span>

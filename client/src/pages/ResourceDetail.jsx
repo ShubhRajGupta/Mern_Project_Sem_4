@@ -99,8 +99,8 @@ function ResourceDetail() {
           <div className="mt-16 bg-[var(--surface-2)] p-8 border border-[var(--border)]">
             <h3 className="text-sm font-serif text-[var(--accent)] mb-2">Document Preview</h3>
             <p className="text-xs text-[var(--ink-muted)] mb-6">A limited preview of the document is available below.</p>
-            <div className="aspect-[1/1.4] w-full bg-white border border-[var(--border)] flex items-center justify-center text-[var(--ink-muted)] font-mono text-xs">
-              [ PDF Viewer Component ]
+            <div className="aspect-[1/1.4] w-full bg-white border border-[var(--border)] relative overflow-hidden">
+              <img src="/assets/doc_thumbnail.png" alt="Document Preview" className="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-multiply" />
             </div>
           </div>
         </div>

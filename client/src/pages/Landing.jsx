@@ -27,6 +27,7 @@ const staggerContainer = {
 function BackgroundParticles() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 bg-[url('/assets/hero_bg.png')] bg-cover bg-center opacity-10 mix-blend-multiply"></div>
       <div className="particle w-64 h-64 top-[10%] left-[20%] opacity-20" style={{ animationDelay: '0s' }}></div>
       <div className="particle w-96 h-96 top-[40%] right-[10%] opacity-10" style={{ animationDelay: '2s' }}></div>
       <div className="particle w-48 h-48 bottom-[20%] left-[40%] opacity-30" style={{ animationDelay: '5s' }}></div>
@@ -70,9 +71,7 @@ function Landing() {
         className="absolute top-0 w-full z-50 px-8 py-6 flex justify-between items-center"
       >
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 flex items-center justify-center border border-[var(--accent)] text-[var(--accent)] font-serif font-bold text-lg transition-transform group-hover:scale-105">
-            R
-          </div>
+          <img src="/assets/logo.png" alt="Resourcely" className="w-8 h-8 rounded-sm object-cover border border-[var(--border)] shadow-sm transition-transform group-hover:scale-105" />
           <span className="font-serif font-semibold text-xl tracking-tight text-[var(--accent)]">
             Resourcely<span className="text-[var(--accent-gold)]">.</span>
           </span>

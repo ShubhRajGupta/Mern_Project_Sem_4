@@ -80,9 +80,14 @@ function Dashboard() {
             <Link key={resource._id} to={`/resource/${resource._id}`} className="group block h-full">
               <Card className="h-full p-8 flex flex-col relative overflow-hidden">
                 {/* Decorative subtle accent line on hover */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-[var(--accent-gold)] transform origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"></div>
+                <div className="absolute top-0 left-0 w-full h-1 bg-[var(--accent-gold)] transform origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100 z-10"></div>
                 
-                <div className="flex items-center justify-between mb-6">
+                <div className="-mx-8 -mt-8 mb-6 h-40 relative overflow-hidden bg-[var(--surface-2)] border-b border-[var(--border)]">
+                  <img src="/assets/doc_thumbnail.png" alt="Document cover" className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent"></div>
+                </div>
+                
+                <div className="flex items-center justify-between mb-6 relative z-10">
                   <span className="text-[10px] font-mono tracking-widest text-[var(--ink-muted)] border border-[var(--border)] px-2 py-1 bg-[var(--surface)]">
                     {resource.type}
                   </span>
