@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Card from '../components/Card'
-import { classNotes, pyqs, videos, cheatsheets, researchPapers, interviewPrep } from '../data/resources'
+import { classNotes, pyqs, videos, cheatsheets, researchPapers, interviewPrep, syllabus, quizzes } from '../data/resources'
 
-const TABS = ['Overview', 'Class Notes', 'PYQs & Solutions', 'Video Lectures', 'Cheat Sheets', 'Research Papers', 'Interview Prep']
+const TABS = ['Overview', 'Class Notes', 'PYQs & Solutions', 'Video Lectures', 'Cheat Sheets', 'Syllabus', 'Quizzes', 'Research Papers', 'Interview Prep']
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState('Overview')
@@ -92,11 +92,39 @@ function Dashboard() {
     </Card>
   )
 
+  const renderSyllabusCard = (syll) => (
+    <Card key={syll.id} className="p-6 flex items-center justify-between group hover:border-[var(--accent)] transition-colors border-l-4 border-l-[var(--surface-2)]">
+      <div>
+        <h3 className="font-serif text-lg text-[var(--accent)] group-hover:text-[var(--accent-gold)] transition-colors">{syll.title}</h3>
+        <p className="text-xs text-[var(--ink-muted)] mt-1">Batch {syll.year} • {syll.type}</p>
+      </div>
+      <div className="text-[10px] font-bold uppercase tracking-widest text-[var(--ink-mid)] border border-[var(--border)] px-3 py-1 bg-[var(--surface-2)]">
+        {syll.subject}
+      </div>
+    </Card>
+  )
+
+  const renderQuizCard = (quiz) => (
+    <Card key={quiz.id} className="p-6 relative overflow-hidden group hover:-translate-y-1 transition-transform border-t-4 border-t-[var(--accent-gold)]">
+      <h3 className="font-serif text-lg text-[var(--accent)] mb-2 group-hover:text-[var(--accent-gold)] transition-colors">{quiz.title}</h3>
+      <div className="flex items-center gap-4 text-xs text-[var(--ink-muted)] mt-4">
+        <span>{quiz.questions} Questions</span>
+        <span>•</span>
+        <span>{quiz.duration}</span>
+      </div>
+      <button className="mt-6 w-full py-2 bg-[var(--surface-2)] text-[var(--accent)] text-xs uppercase tracking-widest font-bold group-hover:bg-[var(--accent)] group-hover:text-white transition-colors">
+        Start Quiz
+      </button>
+    </Card>
+  )
+
   // Full Tab Renderers
   const renderNotes = () => <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{classNotes.map(renderNoteCard)}</div>
   const renderPYQs = () => <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{pyqs.map(renderPYQCard)}</div>
   const renderVideos = () => <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">{videos.map(renderVideoCard)}</div>
   const renderCheatsheets = () => <div className="grid grid-cols-1 md:grid-cols-2 gap-6">{cheatsheets.map(renderCheatsheetCard)}</div>
+  const renderSyllabus = () => <div className="grid grid-cols-1 md:grid-cols-2 gap-6">{syllabus.map(renderSyllabusCard)}</div>
+  const renderQuizzes = () => <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">{quizzes.map(renderQuizCard)}</div>
   const renderResearch = () => <div className="space-y-4">{researchPapers.map(renderResearchCard)}</div>
   const renderInterview = () => <div className="grid grid-cols-1 md:grid-cols-3 gap-6">{interviewPrep.map(renderInterviewCard)}</div>
 
@@ -130,6 +158,15 @@ function Dashboard() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {pyqs.slice(0, 3).map(renderPYQCard)}
+        </div>
+      </section>
+
+      <section className="bg-[var(--surface-2)] -mx-6 px-6 py-12 border-y border-[var(--border)]">
+        <div className="flex justify-between items-end mb-6 border-b border-[var(--border)] pb-2">
+          <h2 className="text-2xl font-serif text-[var(--accent)]">Trending Resources & Recently Viewed</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {cheatsheets.slice(2, 4).map(renderCheatsheetCard)}
         </div>
       </section>
       
@@ -187,6 +224,8 @@ function Dashboard() {
         {activeTab === 'PYQs & Solutions' && renderPYQs()}
         {activeTab === 'Video Lectures' && renderVideos()}
         {activeTab === 'Cheat Sheets' && renderCheatsheets()}
+        {activeTab === 'Syllabus' && renderSyllabus()}
+        {activeTab === 'Quizzes' && renderQuizzes()}
         {activeTab === 'Research Papers' && renderResearch()}
         {activeTab === 'Interview Prep' && renderInterview()}
       </div>

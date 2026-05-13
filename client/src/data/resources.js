@@ -100,3 +100,17 @@ export const interviewPrep = [
   { id: 'i9', title: 'Object Oriented Programming (OOPs) Cheatsheet', subject: 'Core CS', type: 'Interview Guide' },
   { id: 'i10', title: 'Quantitative Aptitude Formulas', subject: 'Aptitude', type: 'Cheat Sheet' },
 ];
+
+export const syllabus = [
+  { id: 's1', title: 'Computer Science & Engineering', subject: 'CSE', type: 'PDF', year: '2023-2027' },
+  { id: 's2', title: 'Electronics & Communication', subject: 'ECE', type: 'PDF', year: '2023-2027' },
+  { id: 's3', title: 'Electrical Engineering', subject: 'EE', type: 'PDF', year: '2023-2027' },
+  { id: 's4', title: 'Civil Engineering', subject: 'Civil', type: 'PDF', year: '2023-2027' },
+];
+
+export const quizzes = [
+  { id: 'q1', title: 'Data Structures Mid-Term Mock', subject: 'DSA', questions: 30, duration: '45 mins' },
+  { id: 'q2', title: 'Operating Systems Core Concepts', subject: 'OS', questions: 20, duration: '30 mins' },
+  { id: 'q3', title: 'Database SQL Queries Assessment', subject: 'DBMS', questions: 25, duration: '40 mins' },
+  { id: 'q4', title: 'Computer Networks OSI Model', subject: 'CN', questions: 15, duration: '20 mins' },
+];
