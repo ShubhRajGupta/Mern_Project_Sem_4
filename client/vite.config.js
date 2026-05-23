@@ -8,4 +8,10 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  // Ensures assets resolve correctly on Netlify/Vercel
+  base: '/',
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+  },
 })

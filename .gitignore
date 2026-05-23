@@ -1,0 +1,17 @@
+# Root-level ignores
+node_modules/
+.env
+.env.local
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Client build artifacts (managed by client/.gitignore)
+client/dist/
+client/node_modules/
